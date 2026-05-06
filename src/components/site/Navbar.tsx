@@ -53,7 +53,7 @@ export function Navbar() {
         <div className="hidden md:block">
           <Link
             to="/contact"
-            className="inline-flex items-center rounded-full bg-gradient-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-emerald transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center rounded-full bg-gradient-emerald-deep px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-all hover:shadow-glow hover:scale-[1.04]"
           >
             Get My Savings
           </Link>
