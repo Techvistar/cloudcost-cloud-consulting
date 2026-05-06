@@ -24,12 +24,12 @@ export function Navbar() {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all ${
-        scrolled ? "glass border-b border-border/60" : "bg-transparent"
+        scrolled ? "glass border-b border-border/60 shadow-soft" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-emerald">
+      <div className="mx-auto flex h-18 max-w-[1280px] items-center justify-between px-6 py-3">
+        <Link to="/" className="flex items-center gap-2.5 font-display text-lg font-bold">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-emerald-deep text-primary-foreground shadow-emerald">
             <Cloud className="h-5 w-5" />
           </span>
           <span>
@@ -53,7 +53,7 @@ export function Navbar() {
         <div className="hidden md:block">
           <Link
             to="/contact"
-            className="inline-flex items-center rounded-full bg-gradient-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-emerald transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center rounded-full bg-gradient-emerald-deep px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-all hover:shadow-glow hover:scale-[1.04]"
           >
             Get My Savings
           </Link>
