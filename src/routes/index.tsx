@@ -93,99 +93,117 @@ function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT - Dashboard mockup */}
+            {/* RIGHT - Savings proposal card */}
             <div className="relative animate-fade-up" style={{ animationDelay: "0.15s" }}>
               <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/20 via-primary-glow/10 to-gold/20 blur-2xl" />
-              <div className="relative rounded-3xl border border-border/80 bg-card p-5 shadow-emerald">
-                <div className="flex items-center justify-between border-b border-border pb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-emerald-deep text-primary-foreground">
-                      <Cloud className="h-4 w-4" />
+
+              <div className="relative rounded-3xl border border-border/80 bg-card p-6 shadow-emerald md:p-7">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-emerald-deep text-primary-foreground shadow-soft">
+                      <Sparkles className="h-4 w-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold">Cloud Savings</div>
-                      <div className="text-xs text-muted-foreground">Live partner quotes</div>
+                      <div className="text-sm font-bold tracking-tight">Savings Proposal</div>
+                      <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Ref · FCC-2048</div>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-2.5 py-1 text-xs font-semibold text-foreground">
-                    <Trophy className="h-3 w-3" /> Best quote
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-foreground">
+                    <Trophy className="h-3 w-3" /> Verified
                   </span>
                 </div>
 
-                {/* Big number */}
-                <div className="mt-5 grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-gradient-emerald-deep p-5 text-primary-foreground shadow-soft">
-                    <div className="flex items-center gap-1.5 text-xs opacity-80">
-                      <TrendingDown className="h-3.5 w-3.5" /> Projected savings
+                {/* Hero savings */}
+                <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-emerald-deep p-6 text-primary-foreground">
+                  <div className="absolute" />
+                  <div className="text-[11px] uppercase tracking-[0.18em] opacity-75">Your potential savings</div>
+                  <div className="mt-2 flex items-end gap-3">
+                    <div className="font-display text-6xl font-black leading-none">58%</div>
+                    <div className="pb-1.5">
+                      <div className="text-xs opacity-75">equivalent to</div>
+                      <div className="text-base font-bold">$84,200/mo</div>
                     </div>
-                    <div className="mt-2 font-display text-4xl font-black">58%</div>
-                    <div className="mt-1 text-xs opacity-80">$84,200 / month</div>
                   </div>
-                  <div className="rounded-2xl border border-border bg-muted/40 p-5">
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <DollarSign className="h-3.5 w-3.5" /> Current spend
-                    </div>
-                    <div className="mt-2 font-display text-4xl font-black">$145K</div>
-                    <div className="mt-1 text-xs text-muted-foreground">AWS · Azure · GCP</div>
+                  <div className="mt-5 flex items-center justify-between rounded-xl bg-white/10 px-4 py-2.5 text-xs backdrop-blur">
+                    <span className="opacity-80">Current spend</span>
+                    <span className="font-bold line-through opacity-60">$145,000</span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-60" />
+                    <span className="font-bold text-gold">$60,800</span>
                   </div>
                 </div>
 
-                {/* Mini chart */}
-                <div className="mt-4 rounded-2xl border border-border bg-muted/30 p-5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-foreground">Spend trajectory</span>
-                    <span className="text-muted-foreground">Last 6 months</span>
+                {/* Partner leaderboard */}
+                <div className="mt-5">
+                  <div className="mb-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    <span>Partner bids</span>
+                    <span>3 of 6</span>
                   </div>
-                  <div className="mt-4 flex h-24 items-end gap-1.5">
-                    {[60, 75, 70, 85, 65, 38].map((h, i) => (
-                      <div key={i} className="flex-1 rounded-t-md bg-gradient-to-t from-primary to-primary-glow" style={{ height: `${h}%`, opacity: 0.4 + i * 0.1 }} />
+                  <div className="space-y-2.5">
+                    {[
+                      { r: "01", n: "Pump.co", s: 58, t: "Best match", g: true },
+                      { r: "02", n: "Cast.ai", s: 52, t: "RI optimized" },
+                      { r: "03", n: "Archera", s: 47, t: "Spot strategy" },
+                    ].map((p) => (
+                      <div
+                        key={p.n}
+                        className={`relative flex items-center gap-3 overflow-hidden rounded-xl border p-3 ${
+                          p.g ? "border-primary/40 bg-primary/5" : "border-border bg-muted/30"
+                        }`}
+                      >
+                        <div className={`font-display text-xs font-black ${p.g ? "text-primary" : "text-muted-foreground"}`}>
+                          {p.r}
+                        </div>
+                        <div className={`grid h-9 w-9 place-items-center rounded-lg ${p.g ? "bg-gradient-emerald-deep text-primary-foreground" : "border border-border bg-card"}`}>
+                          <Zap className="h-4 w-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-sm font-bold">{p.n}</div>
+                          <div className="text-[11px] text-muted-foreground">{p.t}</div>
+                        </div>
+                        <div className="flex w-32 items-center gap-2">
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border/60">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-primary to-primary-glow"
+                              style={{ width: `${p.s}%` }}
+                            />
+                          </div>
+                          <div className="w-9 text-right text-sm font-bold text-gradient">{p.s}%</div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Partner quotes */}
-                <div className="mt-4 space-y-2">
-                  {[
-                    { n: "Pump.co", s: "58%", t: "Best match", g: true },
-                    { n: "Cast.ai", s: "52%", t: "RI optimized" },
-                    { n: "Archera.ai", s: "47%", t: "Spot strategy" },
-                  ].map((p) => (
-                    <div key={p.n} className={`flex items-center justify-between rounded-xl border p-3 ${p.g ? "border-primary/40 bg-primary/5" : "border-border bg-muted/30"}`}>
-                      <div className="flex items-center gap-3">
-                        <div className={`grid h-8 w-8 place-items-center rounded-lg ${p.g ? "bg-gradient-emerald-deep text-primary-foreground" : "bg-card border border-border"}`}>
-                          <Zap className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">{p.n}</div>
-                          <div className="text-xs text-muted-foreground">{p.t}</div>
-                        </div>
-                      </div>
-                      <div className="text-lg font-bold text-gradient">{p.s}</div>
-                    </div>
-                  ))}
+                {/* Footer */}
+                <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs">
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Read-only billing access
+                  </div>
+                  <div className="font-semibold text-foreground">No migration · No lock-in</div>
                 </div>
               </div>
 
               {/* Floating cards */}
-              <div className="absolute -left-8 top-24 hidden rounded-2xl border border-border bg-card p-3 shadow-emerald lg:flex animate-float">
-                <div className="flex items-center gap-2">
+              <div className="absolute -left-8 top-28 hidden rounded-2xl border border-border bg-card p-3 shadow-emerald lg:flex animate-float">
+                <div className="flex items-center gap-2.5">
                   <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-gold text-gold-foreground">
-                    <Trophy className="h-4 w-4" />
+                    <TrendingDown className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground">Avg. savings</div>
-                    <div className="text-sm font-bold">$84K / month</div>
+                    <div className="text-[11px] text-muted-foreground">Avg. monthly savings</div>
+                    <div className="text-sm font-bold">$84K reclaimed</div>
                   </div>
                 </div>
               </div>
               <div className="absolute -right-6 -bottom-6 hidden rounded-2xl border border-border bg-card p-3 shadow-emerald lg:flex animate-float-delay">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/15 text-primary">
                     <LineChart className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground">Quotes ready in</div>
-                    <div className="text-sm font-bold">3–5 days</div>
+                    <div className="text-[11px] text-muted-foreground">Quotes ready in</div>
+                    <div className="text-sm font-bold">3–5 business days</div>
                   </div>
                 </div>
               </div>
