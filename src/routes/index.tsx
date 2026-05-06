@@ -107,8 +107,8 @@ function HomePage() {
                       <div className="text-xs text-muted-foreground">Live partner quotes</div>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-glow-pulse" /> Live
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-2.5 py-1 text-xs font-semibold text-foreground">
+                    <Trophy className="h-3 w-3" /> Best quote
                   </span>
                 </div>
 
