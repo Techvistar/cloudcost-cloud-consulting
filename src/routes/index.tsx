@@ -34,7 +34,7 @@ const valueProps = [
 const stats = [
   { v: "60%", l: "Maximum savings" },
   { v: "200+", l: "Businesses served" },
-  { v: "$14M+", l: "Cloud spend optimized" },
+  { v: "₹120Cr+", l: "Cloud spend optimized" },
   { v: "6+", l: "FinOps partners" },
 ];
 
@@ -121,7 +121,7 @@ function HomePage() {
                   <div className="grid grid-cols-3 gap-3">
                     <div className="rounded-xl border border-border bg-muted/30 p-3.5">
                       <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Annual run-rate</div>
-                      <div className="mt-1.5 text-base font-bold">$1.74M</div>
+                      <div className="mt-1.5 text-base font-bold">₹14.4Cr</div>
                     </div>
                     <div className="rounded-xl border border-primary/30 bg-primary/5 p-3.5">
                       <div className="text-[10px] uppercase tracking-[0.14em] text-primary">Best offer</div>
@@ -140,10 +140,10 @@ function HomePage() {
                       <div>
                         <div className="text-[10px] uppercase tracking-[0.18em] opacity-75">Projected savings</div>
                         <div className="mt-2 flex items-baseline gap-2">
-                          <div className="font-display text-5xl font-black leading-none">$60,900</div>
+                          <div className="font-display text-5xl font-black leading-none">₹50.5L</div>
                           <div className="text-sm opacity-80">/ mo</div>
                         </div>
-                        <div className="mt-1.5 text-xs opacity-75">From $145,000 → $84,100 monthly spend</div>
+                        <div className="mt-1.5 text-xs opacity-75">From ₹1.20Cr → ₹69.8L monthly spend</div>
                       </div>
                       <div className="hidden text-right sm:block">
                         <div className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-bold text-gold">
@@ -158,8 +158,8 @@ function HomePage() {
                         <div className="h-full w-[58%] rounded-full bg-gradient-to-r from-gold to-primary-glow" />
                       </div>
                       <div className="mt-2 flex justify-between text-[10px] opacity-80">
-                        <span>Optimized $84.1K</span>
-                        <span>Reclaimed $60.9K</span>
+                        <span>Optimized ₹69.8L</span>
+                        <span>Reclaimed ₹50.5L</span>
                       </div>
                     </div>
                   </div>
@@ -172,10 +172,10 @@ function HomePage() {
                     </div>
                     <div className="space-y-2">
                       {[
-                        { r: "01", n: "Pump.co", s: 42, amt: "$60,900", t: "RI + Savings Plans", g: true },
-                        { r: "02", n: "CAST AI", s: 38, amt: "$55,100", t: "Spot + autoscaling" },
-                        { r: "03", n: "Archera", s: 34, amt: "$49,300", t: "Commitment hedging" },
-                        { r: "04", n: "Vantage", s: 29, amt: "$42,050", t: "Rightsizing" },
+                        { r: "01", n: "Pump.co", s: 42, amt: "₹50.5L", t: "RI + Savings Plans", g: true },
+                        { r: "02", n: "CAST AI", s: 38, amt: "₹45.7L", t: "Spot + autoscaling" },
+                        { r: "03", n: "Archera", s: 34, amt: "₹40.9L", t: "Commitment hedging" },
+                        { r: "04", n: "Vantage", s: 29, amt: "₹34.9L", t: "Rightsizing" },
                       ].map((p) => (
                         <div
                           key={p.n}
