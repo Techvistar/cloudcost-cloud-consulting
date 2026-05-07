@@ -228,8 +228,8 @@ function HomePage() {
                 </div>
               </div>
 
-              {/* Floating accent card - bottom right only, won't overlap content */}
-              <div className="absolute -bottom-6 -right-4 hidden items-center gap-2.5 rounded-2xl border border-border bg-card px-3.5 py-2.5 shadow-emerald lg:flex animate-float-delay">
+              {/* Floating accent card - moved further out so it doesn't overlap card footer */}
+              <div className="absolute -bottom-10 -right-10 hidden items-center gap-2.5 rounded-2xl border border-border bg-card px-3.5 py-2.5 shadow-emerald xl:flex animate-float-delay">
                 <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/15 text-primary">
                   <LineChart className="h-4 w-4" />
                 </div>
