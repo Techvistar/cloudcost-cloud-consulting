@@ -93,118 +93,149 @@ function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT - Savings proposal card */}
+            {/* RIGHT - Enterprise savings brief */}
             <div className="relative animate-fade-up" style={{ animationDelay: "0.15s" }}>
-              <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/20 via-primary-glow/10 to-gold/20 blur-2xl" />
+              <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/20 via-primary-glow/10 to-gold/20 blur-2xl" />
 
-              <div className="relative rounded-3xl border border-border/80 bg-card p-6 shadow-emerald md:p-7">
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-emerald-deep text-primary-foreground shadow-soft">
+              <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-card shadow-emerald">
+                {/* Header bar */}
+                <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-emerald-deep text-primary-foreground shadow-soft">
                       <Sparkles className="h-4 w-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold tracking-tight">Savings Proposal</div>
-                      <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Ref · FCC-2048</div>
+                      <div className="text-sm font-bold tracking-tight">Cloud Savings Brief</div>
+                      <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                        Northstar Labs · AWS · us-east-1
+                      </div>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-foreground">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-foreground">
                     <Trophy className="h-3 w-3" /> Verified
                   </span>
                 </div>
 
-                {/* Hero savings */}
-                <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-emerald-deep p-6 text-primary-foreground">
-                  <div className="absolute" />
-                  <div className="text-[11px] uppercase tracking-[0.18em] opacity-75">Your potential savings</div>
-                  <div className="mt-2 flex items-end gap-3">
-                    <div className="font-display text-6xl font-black leading-none">58%</div>
-                    <div className="pb-1.5">
-                      <div className="text-xs opacity-75">equivalent to</div>
-                      <div className="text-base font-bold">$84,200/mo</div>
+                <div className="p-6 md:p-7">
+                  {/* Headline KPIs */}
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="rounded-xl border border-border bg-muted/30 p-3.5">
+                      <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Annual run-rate</div>
+                      <div className="mt-1.5 text-base font-bold">$1.74M</div>
+                    </div>
+                    <div className="rounded-xl border border-primary/30 bg-primary/5 p-3.5">
+                      <div className="text-[10px] uppercase tracking-[0.14em] text-primary">Best offer</div>
+                      <div className="mt-1.5 text-base font-bold text-gradient">−42%</div>
+                    </div>
+                    <div className="rounded-xl border border-border bg-muted/30 p-3.5">
+                      <div className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Payback</div>
+                      <div className="mt-1.5 text-base font-bold">&lt; 30 days</div>
                     </div>
                   </div>
-                  <div className="mt-5 flex items-center justify-between rounded-xl bg-white/10 px-4 py-2.5 text-xs backdrop-blur">
-                    <span className="opacity-80">Current spend</span>
-                    <span className="font-bold line-through opacity-60">$145,000</span>
-                    <ArrowRight className="h-3.5 w-3.5 opacity-60" />
-                    <span className="font-bold text-gold">$60,800</span>
-                  </div>
-                </div>
 
-                {/* Partner leaderboard */}
-                <div className="mt-5">
-                  <div className="mb-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                    <span>Partner bids</span>
-                    <span>3 of 6</span>
-                  </div>
-                  <div className="space-y-2.5">
-                    {[
-                      { r: "01", n: "Pump.co", s: 58, t: "Best match", g: true },
-                      { r: "02", n: "Cast.ai", s: 52, t: "RI optimized" },
-                      { r: "03", n: "Archera", s: 47, t: "Spot strategy" },
-                    ].map((p) => (
-                      <div
-                        key={p.n}
-                        className={`relative flex items-center gap-3 overflow-hidden rounded-xl border p-3 ${
-                          p.g ? "border-primary/40 bg-primary/5" : "border-border bg-muted/30"
-                        }`}
-                      >
-                        <div className={`font-display text-xs font-black ${p.g ? "text-primary" : "text-muted-foreground"}`}>
-                          {p.r}
+                  {/* Hero spend block */}
+                  <div className="relative mt-5 overflow-hidden rounded-2xl bg-gradient-emerald-deep p-6 text-primary-foreground">
+                    <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold/20 blur-3xl" />
+                    <div className="relative flex items-end justify-between gap-6">
+                      <div>
+                        <div className="text-[10px] uppercase tracking-[0.18em] opacity-75">Projected savings</div>
+                        <div className="mt-2 flex items-baseline gap-2">
+                          <div className="font-display text-5xl font-black leading-none">$60,900</div>
+                          <div className="text-sm opacity-80">/ mo</div>
                         </div>
-                        <div className={`grid h-9 w-9 place-items-center rounded-lg ${p.g ? "bg-gradient-emerald-deep text-primary-foreground" : "border border-border bg-card"}`}>
-                          <Zap className="h-4 w-4" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-sm font-bold">{p.n}</div>
-                          <div className="text-[11px] text-muted-foreground">{p.t}</div>
-                        </div>
-                        <div className="flex w-32 items-center gap-2">
-                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border/60">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-primary to-primary-glow"
-                              style={{ width: `${p.s}%` }}
-                            />
-                          </div>
-                          <div className="w-9 text-right text-sm font-bold text-gradient">{p.s}%</div>
-                        </div>
+                        <div className="mt-1.5 text-xs opacity-75">From $145,000 → $84,100 monthly spend</div>
                       </div>
-                    ))}
+                      <div className="hidden text-right sm:block">
+                        <div className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-bold text-gold">
+                          <TrendingDown className="h-3 w-3" /> 42%
+                        </div>
+                        <div className="mt-2 text-[11px] opacity-75">vs. current</div>
+                      </div>
+                    </div>
+                    {/* Spend bar */}
+                    <div className="relative mt-5">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-white/15">
+                        <div className="h-full w-[58%] rounded-full bg-gradient-to-r from-gold to-primary-glow" />
+                      </div>
+                      <div className="mt-2 flex justify-between text-[10px] opacity-80">
+                        <span>Optimized $84.1K</span>
+                        <span>Reclaimed $60.9K</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Footer */}
-                <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs">
-                  <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Read-only billing access
+                  {/* Partner leaderboard */}
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                      <span>Partner bids</span>
+                      <span>4 of 6 received</span>
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { r: "01", n: "Pump.co", s: 42, amt: "$60,900", t: "RI + Savings Plans", g: true },
+                        { r: "02", n: "CAST AI", s: 38, amt: "$55,100", t: "Spot + autoscaling" },
+                        { r: "03", n: "Archera", s: 34, amt: "$49,300", t: "Commitment hedging" },
+                        { r: "04", n: "Vantage", s: 29, amt: "$42,050", t: "Rightsizing" },
+                      ].map((p) => (
+                        <div
+                          key={p.n}
+                          className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 ${
+                            p.g ? "border-primary/40 bg-primary/5" : "border-border bg-muted/20"
+                          }`}
+                        >
+                          <div className={`font-display text-[11px] font-black ${p.g ? "text-primary" : "text-muted-foreground"}`}>
+                            {p.r}
+                          </div>
+                          <div className={`grid h-8 w-8 place-items-center rounded-lg ${p.g ? "bg-gradient-emerald-deep text-primary-foreground" : "border border-border bg-card text-muted-foreground"}`}>
+                            <Zap className="h-3.5 w-3.5" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <div className="text-sm font-bold">{p.n}</div>
+                              {p.g && (
+                                <span className="rounded-full bg-gold/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-foreground">
+                                  Best
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground">{p.t}</div>
+                          </div>
+                          <div className="hidden w-20 text-right sm:block">
+                            <div className="text-[11px] text-muted-foreground">/mo</div>
+                            <div className="text-xs font-bold">{p.amt}</div>
+                          </div>
+                          <div className="flex w-24 items-center gap-2">
+                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-border/60">
+                              <div
+                                className="h-full rounded-full bg-gradient-to-r from-primary to-primary-glow"
+                                style={{ width: `${(p.s / 42) * 100}%` }}
+                              />
+                            </div>
+                            <div className="w-8 text-right text-xs font-bold text-gradient">{p.s}%</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="font-semibold text-foreground">No migration · No lock-in</div>
+
+                  {/* Footer */}
+                  <div className="mt-6 flex items-center justify-between border-t border-border pt-4 text-xs">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <ShieldCheck className="h-3.5 w-3.5 text-primary" /> SOC 2 · Read-only access
+                    </div>
+                    <div className="font-semibold text-foreground">No migration · No lock-in</div>
+                  </div>
                 </div>
               </div>
 
-              {/* Floating cards */}
-              <div className="absolute -left-8 top-28 hidden rounded-2xl border border-border bg-card p-3 shadow-emerald lg:flex animate-float">
-                <div className="flex items-center gap-2.5">
-                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-gold text-gold-foreground">
-                    <TrendingDown className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-muted-foreground">Avg. monthly savings</div>
-                    <div className="text-sm font-bold">$84K reclaimed</div>
-                  </div>
+              {/* Floating accent card - bottom right only, won't overlap content */}
+              <div className="absolute -bottom-6 -right-4 hidden items-center gap-2.5 rounded-2xl border border-border bg-card px-3.5 py-2.5 shadow-emerald lg:flex animate-float-delay">
+                <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/15 text-primary">
+                  <LineChart className="h-4 w-4" />
                 </div>
-              </div>
-              <div className="absolute -right-6 -bottom-6 hidden rounded-2xl border border-border bg-card p-3 shadow-emerald lg:flex animate-float-delay">
-                <div className="flex items-center gap-2.5">
-                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary/15 text-primary">
-                    <LineChart className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-muted-foreground">Quotes ready in</div>
-                    <div className="text-sm font-bold">3–5 business days</div>
-                  </div>
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. delivery</div>
+                  <div className="text-sm font-bold">3–5 business days</div>
                 </div>
               </div>
             </div>
