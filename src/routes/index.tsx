@@ -1,197 +1,271 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight, ShieldCheck, Layers, Unlock, Users, BarChart3, Trophy,
-  Sparkles, TrendingDown, CheckCircle2, Cloud, Zap, LineChart, DollarSign,
-} from "lucide-react";
-import { Section } from "@/components/site/Section";
-import { PartnerMarquee } from "@/components/site/Marquee";
 import { FinalCTA } from "@/components/site/CTA";
+import { PartnerMarquee } from "@/components/site/Marquee";
+import { Section } from "@/components/site/Section";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import heroBg from "../assets/hero-bg.png";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Cloud,
+  Layers,
+  ShieldCheck,
+  Sparkles,
+  TrendingDown,
+  Users,
+  Zap,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Fixcloudcost — Save up to 60% on AWS, Azure & GCP bills" },
-      { name: "description", content: "Get competing quotes from top FinOps partners and reduce cloud cost by up to 60%. Read-only access. No migrations. No lock-ins." },
-      { property: "og:title", content: "Fixcloudcost — Save up to 60% on cloud bills" },
-      { property: "og:description", content: "Multiple FinOps partners. One best quote. Zero migrations." },
+      { title: "Cloudcost — Enterprise Cloud Consulting & Cost Optimization" },
+      {
+        name: "description",
+        content: "Transform your cloud infrastructure with expert consulting services. Cost optimization, migration, architecture design, and 24/7 managed operations across AWS, Azure, and GCP.",
+      },
+      { property: "og:title", content: "Cloudcost — Enterprise Cloud Consulting & Cost Optimization" },
+      {
+        property: "og:description",
+        content: "Enterprise-grade cloud consulting and cost optimization services for AWS, Azure, and GCP infrastructure.",
+      },
     ],
   }),
   component: HomePage,
 });
 
-const customers = [
-  "Explorex", "Zomentum", "Sigmoid", "Beinex", "Terrapay", "Razorlabs",
-  "Northstar", "Loopwise", "Quantia", "Vertexa", "Helio", "Bytemark",
-];
-
 const valueProps = [
-  { icon: BarChart3, title: "Compare multiple quotes", desc: "Side-by-side proposals from vetted FinOps experts in days, not months." },
-  { icon: ShieldCheck, title: "Read-only access", desc: "Bank-grade security. Partners only see billing — never your infrastructure." },
-  { icon: Unlock, title: "No lock-ins, ever", desc: "Pick the best deal. Switch partners anytime, with zero penalties." },
-  { icon: Users, title: "Vetted FinOps experts", desc: "Pre-screened specialists for AWS, Azure and GCP optimization." },
-];
-
-const stats = [
-  { v: "60%", l: "Maximum savings" },
-  { v: "200+", l: "Businesses served" },
-  { v: "₹120Cr+", l: "Cloud spend optimized" },
-  { v: "6+", l: "FinOps partners" },
+  {
+    icon: Cloud,
+    title: "Multi-Cloud Expertise",
+    desc: "Comprehensive support across AWS, Azure, and GCP with deep platform knowledge and best practices.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Enterprise Security",
+    desc: "Bank-grade security measures and compliance frameworks to protect your cloud infrastructure.",
+  },
+  {
+    icon: Zap,
+    title: "Performance Optimization",
+    desc: "Data-driven insights and automation to maximize performance while minimizing costs.",
+  },
+  {
+    icon: Users,
+    title: "Dedicated Support",
+    desc: "24/7 expert support and managed services to ensure your systems remain secure and available.",
+  },
 ];
 
 const steps = [
-  { n: "01", t: "Share your cloud bill", d: "Grant secure read-only billing access to AWS, Azure or GCP in minutes." },
-  { n: "02", t: "Partners analyze & quote", d: "Top FinOps providers compete with detailed optimization plans and pricing." },
-  { n: "03", t: "Choose the best deal", d: "Pick the proposal that maximizes your savings — no migrations, no lock-ins." },
+  { n: "01", t: "Assessment & Planning", d: "Comprehensive analysis of your current infrastructure and requirements to develop a tailored cloud strategy." },
+  { n: "02", t: "Design & Implementation", d: "Expert architecture design and seamless implementation of cloud solutions with minimal disruption." },
+  { n: "03", t: "Optimization & Support", d: "Continuous monitoring, optimization, and ongoing support to ensure peak performance and cost efficiency." },
+];
+
+// Animation variants for value props cards
+const valuePropVariants = [
+  {
+    initial: { opacity: 0, x: -100 },
+    animate: { opacity: 1, x: 0 },
+    hover: { scale: 1.05, rotateY: 5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  },
+  {
+    initial: { opacity: 0, x: 100 },
+    animate: { opacity: 1, x: 0 },
+    hover: { scale: 1.05, rotateY: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  },
+  {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    hover: { scale: 1.1, rotateX: 10, boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }
+  },
+  {
+    initial: { opacity: 0, rotate: -180 },
+    animate: { opacity: 1, rotate: 0 },
+    hover: { scale: 1.05, rotate: 5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  }
+];
+
+// Animation variants for steps cards
+const stepVariants = [
+  {
+    initial: { opacity: 0, y: 50 },
+    animate: { opacity: 1, y: 0 },
+    transition: { type: "spring", stiffness: 100 },
+    hover: { scale: 1.05, y: -10, boxShadow: "0 30px 60px rgba(0,0,0,0.2)" }
+  },
+  {
+    initial: { opacity: 0, scale: 0.5 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { type: "spring", stiffness: 200, damping: 10 },
+    hover: { scale: 1.1, rotate: 2, boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }
+  },
+  {
+    initial: { opacity: 0, rotateY: 90 },
+    animate: { opacity: 1, rotateY: 0 },
+    transition: { type: "spring", stiffness: 150 },
+    hover: { scale: 1.05, rotateY: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  }
 ];
 
 function HomePage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0px", "110px"]);
+
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-hero" />
-        <div className="absolute inset-0 bg-grid opacity-60" />
-        {/* Floating orbs */}
-        <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl animate-orb" />
-        <div className="pointer-events-none absolute -right-32 top-40 h-[28rem] w-[28rem] rounded-full bg-gold/15 blur-3xl animate-orb" />
-        <div className="pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-primary-glow/20 blur-3xl animate-glow-pulse" />
+      <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: "88vh", display: "flex", alignItems: "center" }}>
+        {/* Parallax wallpaper */}
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            scale: 1.28,
+            y: bgY,
+          }}
+        />
+        {/* Premium cream overlay — preserves green/gold tones, ensures readability */}
+        <div className="pointer-events-none absolute inset-0 bg-hero-overlay" />
 
-        <div className="relative mx-auto max-w-[1100px] px-6 pb-32 pt-24 text-center md:pt-32">
-          <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card/70 px-4 py-1.5 text-xs font-semibold text-primary shadow-soft backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" /> The FinOps marketplace for cloud savings
-            </span>
-            <h1 className="mx-auto mt-7 max-w-[20ch] font-display text-5xl font-black leading-[1.02] tracking-tight md:text-6xl lg:text-7xl xl:text-[5.5rem]">
-              Save up to <span className="text-gradient">60%</span> on your cloud bills
+        <div className="relative w-full mx-auto max-w-[1100px] px-6 pb-36 pt-28 text-center md:pt-40">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.span
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-white/85 px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary shadow-soft backdrop-blur-md"
+            >
+              <Sparkles className="h-3.5 w-3.5" /> Cloud Cost Optimization
+            </motion.span>
+            <h1 className="hero-heading mx-auto mt-8 max-w-[22ch] font-display text-5xl font-black leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-[5.5rem]">
+              Reduce Your{" "}
+              <span className="text-gradient-hero">Cloud Spend</span>
             </h1>
-            <p className="mx-auto mt-7 max-w-[680px] text-lg text-muted-foreground md:text-xl">
-              Multiple FinOps partners compete to optimize your AWS, Azure and GCP spend.
-              You get the best quote — without infrastructure changes or vendor lock-ins.
+            <p className="mx-auto mt-8 max-w-[660px] text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Enterprise-grade cloud optimization, migration, and managed services. Get competing FinOps quotes from top partners within days. Transform your infrastructure across AWS, Azure, and GCP.
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            >
               <Link
                 to="/contact"
-                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-emerald-deep px-8 py-4 text-base font-semibold text-primary-foreground shadow-emerald transition-all hover:shadow-glow hover:scale-[1.02]"
+                className="group btn-hero btn-hero-primary relative overflow-hidden"
               >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                Get My Savings <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <span className="absolute inset-0 -translate-x-full bg-white/15 transition-transform duration-700 ease-out group-hover:translate-x-full" />
+                <span className="relative inline-flex items-center gap-2">
+                  Get Started <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
               </Link>
               <Link
-                to="/how-it-works"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card/70 px-8 py-4 text-base font-semibold text-foreground backdrop-blur transition-all hover:bg-card hover:border-primary/40"
+                to="/services"
+                className="btn-hero btn-hero-secondary"
               >
-                See How It Works
+                Our Services
               </Link>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> Read-only access</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> No lock-ins</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> No migrations</span>
-            </div>
-          </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground"
+            >
+              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> AWS, Azure, GCP</span>
+              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> Enterprise Security</span>
+              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> 24/7 Support</span>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       <PartnerMarquee />
 
-      {/* Customers */}
-      <Section
-        eyebrow="Customers"
-        title={<>Trusted by <span className="text-gradient">200+ cloud-native companies</span></>}
-        subtitle="From scale-ups to enterprises optimizing multi-cloud spend at scale."
-      >
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {customers.map((c) => (
-            <div
-              key={c}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card px-4 py-7 text-center font-display text-base font-semibold text-muted-foreground shadow-soft transition-all hover:-translate-y-1 hover:border-primary/40 hover:text-foreground hover:shadow-emerald"
-            >
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/0 via-transparent to-gold/0 opacity-0 transition-opacity group-hover:opacity-100 group-hover:from-primary/5 group-hover:to-gold/5" />
-              {c}
-            </div>
-          ))}
-        </div>
-      </Section>
-
       {/* Value props - alternating bg */}
       <div className="bg-gradient-to-b from-transparent via-muted/40 to-transparent">
         <Section
-          eyebrow="Why Fixcloudcost"
-          title={<>One marketplace. <span className="text-gradient">All the leverage.</span></>}
-          subtitle="Built for CTOs, DevOps and finance leaders who want real savings — not another dashboard."
+          eyebrow="Why Choose Us"
+          title={<>Enterprise Cloud <span className="text-gradient">Consulting Excellence</span></>}
+          subtitle="Comprehensive cloud solutions delivered by certified experts with proven track records across major cloud platforms."
         >
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {valueProps.map((v, i) => (
-              <div
+              <motion.div
                 key={v.title}
-                className="group relative rounded-2xl border border-border bg-card p-7 shadow-soft transition-all hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-emerald animate-fade-up"
-                style={{ animationDelay: `${i * 0.08}s` }}
+                initial={valuePropVariants[i].initial}
+                animate={valuePropVariants[i].animate}
+                whileHover={valuePropVariants[i].hover}
+                transition={{ duration: 0.65, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="group card-panel overflow-hidden p-7 transition-transform duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-emerald"
               >
                 <div className="absolute inset-x-0 -top-px mx-6 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-emerald-deep text-primary-foreground shadow-soft">
                   <v.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-6 text-xl font-bold">{v.title}</h3>
-                <p className="mt-2.5 text-[15px] leading-relaxed text-muted-foreground">{v.desc}</p>
-              </div>
+                <h3 className="mt-6 text-xl font-semibold text-foreground">{v.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{v.desc}</p>
+              </motion.div>
             ))}
           </div>
         </Section>
       </div>
 
-      {/* Stats band */}
-      <section className="mx-auto max-w-[1280px] px-6 pb-12">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-emerald-deep p-10 text-primary-foreground shadow-emerald md:p-14">
-          <div className="absolute inset-0 bg-grid-dark opacity-40" />
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
-          <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-primary-glow/30 blur-3xl" />
-          <div className="relative grid grid-cols-2 gap-y-10 md:grid-cols-4 md:divide-x md:divide-white/10">
-            {stats.map((s) => (
-              <div key={s.l} className="px-4 text-center">
-                <div className="font-display text-5xl font-black md:text-6xl">{s.v}</div>
-                <div className="mt-2 text-sm opacity-80">{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Process */}
       <Section
-        eyebrow="How it works"
-        title={<>Savings in <span className="text-gradient">3 simple steps</span></>}
-        subtitle="From cloud bill to side-by-side proposals — usually in less than a week."
+        eyebrow="Our Process"
+        title={<>From Assessment to <span className="text-gradient">Optimization</span></>}
+        subtitle="A proven methodology for transforming your cloud infrastructure with minimal risk and maximum efficiency."
       >
         <div className="relative grid gap-6 md:grid-cols-3">
-          {/* Connector line */}
-          <div className="absolute left-0 right-0 top-20 hidden h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent md:block" />
+          <div className="absolute left-1/2 top-16 hidden h-px w-[calc(100%_-_4rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-primary/40 to-transparent md:block" />
           {steps.map((s, i) => (
-            <div
+            <motion.div
               key={s.n}
-              className="group relative rounded-2xl border border-border bg-card p-8 shadow-soft transition-all hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-emerald"
+              initial={stepVariants[i].initial}
+              animate={stepVariants[i].animate}
+              whileHover={stepVariants[i].hover}
+              transition={stepVariants[i].transition || { duration: 0.55, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="group card-panel relative p-8 transition-transform duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-emerald"
             >
-              <div className="flex items-start justify-between">
-                <div className="font-display text-6xl font-black text-gradient">{s.n}</div>
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
-                  {i === 0 ? <ShieldCheck className="h-5 w-5" /> : i === 1 ? <Users className="h-5 w-5" /> : <Trophy className="h-5 w-5" />}
+              <div className="flex items-start justify-between gap-4">
+                <div className="font-display text-5xl font-black text-gradient">{s.n}</div>
+                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary shadow-soft">
+                  {i === 0 ? <ShieldCheck className="h-5 w-5" /> : i === 1 ? <Layers className="h-5 w-5" /> : <TrendingDown className="h-5 w-5" />}
                 </div>
               </div>
-              <h3 className="mt-5 text-2xl font-bold">{s.t}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.d}</p>
+              <h3 className="mt-5 text-2xl font-semibold text-foreground">{s.t}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
               {i < steps.length - 1 && (
-                <div className="absolute -right-3 top-20 z-10 hidden h-7 w-7 place-items-center rounded-full border border-border bg-background text-primary md:grid">
+                <div className="absolute -right-3 top-20 z-10 hidden h-7 w-7 items-center justify-center rounded-full border border-border bg-background text-primary md:grid">
                   <ArrowRight className="h-3.5 w-3.5" />
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="mt-12 text-center">
           <Link
-            to="/how-it-works"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+            to="/services"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-foreground"
           >
-            See the full process <ArrowRight className="h-4 w-4" />
+            Explore Our Services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </Section>

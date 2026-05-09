@@ -1,14 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
 import { FinalCTA } from "@/components/site/CTA";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partners — Fixcloudcost" },
-      { name: "description", content: "Meet the vetted FinOps partners competing to optimize your cloud spend: pump.co, cast.ai, archera.ai, spendbase.co and more." },
-      { property: "og:title", content: "Our FinOps Partner Network" },
+      { title: "Partners — Cloudcost" },
+      { name: "description", content: "Meet our vetted FinOps partners competing to optimize your cloud spend: pump.co, cast.ai, archera.ai, spendbase.co and more." },
+      { property: "og:title", content: "Cloudcost FinOps Partner Network" },
       { property: "og:description", content: "Top FinOps experts across AWS, Azure and GCP." },
     ],
   }),
@@ -22,6 +23,42 @@ const partners = [
   { name: "usage.ai", spec: "RI & Savings Plans", desc: "AI-driven Reserved Instance and Savings Plans management for AWS." },
   { name: "archera.ai", spec: "Commitment Insurance", desc: "Guaranteed savings with flexible 30-day commitments and analytics." },
   { name: "spendbase.co", spec: "SaaS & Cloud Spend", desc: "Unified cloud and SaaS spend management with negotiated discounts." },
+];
+
+// Animation variants for partner cards
+const partnerVariants = [
+  {
+    initial: { opacity: 0, y: 50 },
+    animate: { opacity: 1, y: 0 },
+    hover: { scale: 1.05, y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  },
+  {
+    initial: { opacity: 0, x: -50 },
+    animate: { opacity: 1, x: 0 },
+    transition: { type: "spring", stiffness: 100 },
+    hover: { scale: 1.05, rotateY: 5, boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }
+  },
+  {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    hover: { scale: 1.1, boxShadow: "0 30px 60px rgba(0,0,0,0.2)" }
+  },
+  {
+    initial: { opacity: 0, x: 50 },
+    animate: { opacity: 1, x: 0 },
+    hover: { scale: 1.05, rotateY: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  },
+  {
+    initial: { opacity: 0, rotate: 10 },
+    animate: { opacity: 1, rotate: 0 },
+    transition: { type: "spring", stiffness: 120 },
+    hover: { scale: 1.05, rotate: -5, boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }
+  },
+  {
+    initial: { opacity: 0, y: -50 },
+    animate: { opacity: 1, y: 0 },
+    hover: { scale: 1.05, y: 5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }
+  }
 ];
 
 function PartnersPage() {
@@ -44,9 +81,14 @@ function PartnersPage() {
 
       <Section>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {partners.map((p) => (
-            <div
+          {partners.map((p, i) => (
+            <motion.div
               key={p.name}
+              initial={partnerVariants[i].initial}
+              animate={partnerVariants[i].animate}
+              whileHover={partnerVariants[i].hover}
+              transition={partnerVariants[i].transition || { duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true }}
               className="group rounded-2xl border border-border bg-card p-7 shadow-soft transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-emerald"
             >
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-primary font-display text-xl font-bold text-primary-foreground shadow-emerald">
@@ -60,7 +102,7 @@ function PartnersPage() {
               <div className="mt-5 flex items-center gap-1 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
                 Available in marketplace <ArrowRight className="h-4 w-4" />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </Section>

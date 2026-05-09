@@ -1,16 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
+    HeadContent,
+    Link,
+    Outlet,
+    Scripts,
+    createRootRouteWithContext,
+    useRouter,
 } from "@tanstack/react-router";
 
-import appCss from "../styles.css?url";
-import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { Navbar } from "@/components/site/Navbar";
+import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -74,11 +74,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Fixcloudcost — Cut your cloud bill by up to 60%" },
-      { name: "description", content: "Fixcloudcost is a FinOps marketplace where top partners compete to optimize your AWS, Azure, and GCP spend. No migrations. No lock-ins." },
-      { name: "author", content: "Fixcloudcost" },
-      { property: "og:title", content: "Fixcloudcost — Cut your cloud bill by up to 60%" },
-      { property: "og:description", content: "Multiple FinOps partners. One best quote. Zero migrations." },
+      { title: "Cloudcost — Cloud Cost Optimization & Enterprise Consulting" },
+      { name: "description", content: "Reduce your cloud spend with expert cost optimization, FinOps consulting, migration, architecture design, and managed services across AWS, Azure, and GCP." },
+      { name: "author", content: "Cloudcost" },
+      { property: "og:title", content: "Cloudcost — Cloud Cost Optimization & Enterprise Consulting" },
+      { property: "og:description", content: "Transform your cloud infrastructure with expert consulting services across AWS, Azure, and GCP." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },

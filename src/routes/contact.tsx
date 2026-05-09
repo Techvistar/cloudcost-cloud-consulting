@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { ShieldCheck, Mail, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Mail, CheckCircle2, Phone, MapPin, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Get Your Cloud Savings Report" },
-      { name: "description", content: "Tell us about your cloud spend and get competing FinOps quotes within days. No commitment, no infrastructure changes." },
-      { property: "og:title", content: "Get your savings report — Fixcloudcost" },
+      { title: "Contact Cloudcost — Get Your Cloud Savings Report" },
+      { name: "description", content: "Reduce your cloud spend with expert guidance. Get competing FinOps quotes from top partners within days. No commitment, no infrastructure changes." },
+      { property: "og:title", content: "Contact Cloudcost — Cloud Cost Optimization" },
       { property: "og:description", content: "Get competing FinOps quotes for your AWS, Azure or GCP spend." },
     ],
   }),
@@ -27,19 +27,46 @@ const schema = z.object({
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
+    setSubmitError(null);
+
     const fd = new FormData(e.currentTarget);
     const result = schema.safeParse(Object.fromEntries(fd.entries()));
+    
     if (!result.success) {
       const errs: Record<string, string> = {};
       result.error.issues.forEach((i) => { errs[String(i.path[0])] = i.message; });
       setErrors(errs);
+      setIsLoading(false);
       return;
     }
+
     setErrors({});
-    setSubmitted(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mvzlqjlj", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+        },
+        body: fd,
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitError("Failed to submit form. Please try again.");
+      }
+    } catch (error) {
+      setSubmitError("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -49,49 +76,94 @@ function ContactPage() {
         <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 md:py-28">
           <div>
             <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-              Contact
+              Contact Us
             </span>
             <h1 className="mt-5 text-4xl font-bold md:text-5xl">
               Get your <span className="text-gradient">savings report</span>
             </h1>
             <p className="mt-5 max-w-md text-muted-foreground">
-              Share a few details and we'll match you with FinOps partners. Receive competing quotes within days.
+              Share a few details and we'll match you with FinOps experts. Receive competing optimization quotes within days.
             </p>
             <ul className="mt-8 space-y-3 text-sm">
-              {["Read-only billing access only", "No infrastructure changes", "No lock-ins or penalties", "First quotes in 5–7 days"].map((p) => (
+              {["Read-only billing access only", "No infrastructure changes", "No lock-ins or penalties", "Expert quotes in 5–7 days"].map((p) => (
                 <li key={p} className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" /> {p}
                 </li>
               ))}
             </ul>
+            
+            {/* Contact Info */}
+            <div className="mt-12 space-y-4">
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Phone</p>
+                  <a href="tel:8851283166" className="text-sm font-medium hover:text-primary transition-colors">
+                    +91 88512 83166
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Email</p>
+                  <a href="mailto:amit@solutionsoftech.com" className="text-sm font-medium hover:text-primary transition-colors">
+                    amit@solutionsoftech.com
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Address</p>
+                  <p className="text-sm">
+                    SF-02, D-10, Pandav Nagar,<br />
+                    New Delhi - 110092
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div className="mt-10 flex items-center gap-3 rounded-xl border border-border bg-card/60 p-4 text-sm text-muted-foreground">
-              <ShieldCheck className="h-5 w-5 text-primary" />
+              <ShieldCheck className="h-5 w-5 text-primary flex-shrink-0" />
               Your data is encrypted and never shared without consent.
             </div>
           </div>
 
-          <div className="rounded-3xl border border-border bg-card p-7 shadow-emerald md:p-8">
+          <div className="glass-panel rounded-[2rem] border border-border p-8 md:p-10">
             {submitted ? (
               <div className="flex h-full flex-col items-center justify-center py-12 text-center">
                 <div className="grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
-                  <Mail className="h-8 w-8" />
+                  <CheckCircle2 className="h-8 w-8" />
                 </div>
                 <h3 className="mt-5 text-2xl font-bold">Thank you!</h3>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                  We've received your details. A FinOps specialist will reach out within 24 hours with next steps.
+                  We've received your details. Our team will review your information and reach out within 24 hours with next steps and initial recommendations.
                 </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                >
+                  Submit another inquiry
+                </button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="space-y-4" noValidate>
-                <Field label="Name" name="name" error={errors.name} />
+              <form onSubmit={onSubmit} className="space-y-5" noValidate>
+                {submitError && (
+                  <div className="flex items-center gap-3 rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                    {submitError}
+                  </div>
+                )}
+                <Field label="Full Name" name="name" error={errors.name} />
                 <Field label="Work Email" name="email" type="email" error={errors.email} />
                 <Field label="Company" name="company" error={errors.company} />
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium">Cloud Provider</label>
+                  <label className="mb-2 block text-sm font-semibold text-foreground">Cloud Provider</label>
                   <select
                     name="provider"
                     defaultValue="AWS"
-                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
                   >
                     <option>AWS</option>
                     <option>Azure</option>
@@ -99,22 +171,23 @@ function ContactPage() {
                     <option>Multi-cloud</option>
                   </select>
                 </div>
-                <Field label="Monthly Cloud Spend" name="spend" placeholder="$25,000" error={errors.spend} />
+                <Field label="Monthly Cloud Spend" name="spend" placeholder="e.g., $25,000" error={errors.spend} />
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium">Message <span className="text-muted-foreground">(optional)</span></label>
+                  <label className="mb-2 block text-sm font-semibold text-foreground">Message <span className="text-muted-foreground">(optional)</span></label>
                   <textarea
                     name="message"
                     rows={4}
                     maxLength={1000}
-                    className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30 resize-none"
                   />
                   {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
                 </div>
                 <button
                   type="submit"
-                  className="mt-2 w-full rounded-full bg-gradient-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-transform hover:scale-[1.01]"
+                  disabled={isLoading}
+                  className="mt-2 w-full rounded-full bg-gradient-emerald-deep px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  Get My Savings Report
+                  {isLoading ? "Submitting..." : "Get My Savings Report"}
                 </button>
               </form>
             )}
@@ -130,13 +203,13 @@ function Field({
 }: { label: string; name: string; type?: string; placeholder?: string; error?: string }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-medium">{label}</label>
+      <label className="mb-1.5 block text-sm font-semibold text-foreground">{label}</label>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
         maxLength={255}
-        className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+        className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
       />
       {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
     </div>

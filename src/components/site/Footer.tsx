@@ -1,40 +1,66 @@
 import { Link } from "@tanstack/react-router";
-import { Cloud } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import cloudcostLogo from "../../assets/cloudcost-logo.png";
 
 export function Footer() {
   return (
     <footer className="border-t border-border/60 bg-muted/30">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary text-primary-foreground">
-              <Cloud className="h-5 w-5" />
-            </span>
-            Fix<span className="text-gradient">cloudcost</span>
+          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold hover:opacity-85 transition-opacity">
+            <img
+              src={cloudcostLogo}
+              alt="Cloudcost"
+              className="h-9 md:h-[36px] w-auto object-contain"
+              width="160"
+              height="36"
+            />
+            <span>Cloudcost</span>
           </Link>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Multiple partners. One best quote. Zero migrations. Cut your AWS, Azure, and GCP bills by up to 60%.
+            Transform your cloud infrastructure with enterprise-grade consulting services. Cost optimization, migration, architecture design, and 24/7 managed operations.
           </p>
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center gap-3 text-sm">
+              <Phone className="h-4 w-4 text-primary flex-shrink-0" />
+              <a href="tel:8851283166" className="hover:text-foreground transition-colors">
+                +91 88512 83166
+              </a>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <Mail className="h-4 w-4 text-primary flex-shrink-0" />
+              <a href="mailto:amit@solutionsoftech.com" className="hover:text-foreground transition-colors">
+                amit@solutionsoftech.com
+              </a>
+            </div>
+            <div className="flex items-start gap-3 text-sm">
+              <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+              <div className="text-muted-foreground">
+                SF-02, D-10, Pandav Nagar,<br />
+                New Delhi - 110092
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <h4 className="text-sm font-semibold">Product</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/services" className="hover:text-foreground">Services</Link></li>
-            <li><Link to="/how-it-works" className="hover:text-foreground">How it works</Link></li>
-            <li><Link to="/partners" className="hover:text-foreground">Partners</Link></li>
+            <li><Link to="/services" className="hover:text-foreground transition-colors">Services</Link></li>
+            <li><Link to="/how-it-works" className="hover:text-foreground transition-colors">How it works</Link></li>
+            <li><Link to="/partners" className="hover:text-foreground transition-colors">Partners</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="text-sm font-semibold">Company</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
-            <li><span>Privacy</span></li>
-            <li><span>Terms</span></li>
+            <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+            <li><span className="cursor-pointer hover:text-foreground transition-colors">Privacy</span></li>
+            <li><span className="cursor-pointer hover:text-foreground transition-colors">Terms</span></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Fixcloudcost. All rights reserved.
+        © {new Date().getFullYear()} Cloudcost. All rights reserved.
       </div>
     </footer>
   );
