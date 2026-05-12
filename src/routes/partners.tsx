@@ -1,15 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Section } from "@/components/site/Section";
 import { FinalCTA } from "@/components/site/CTA";
+import { Section } from "@/components/site/Section";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import partnersWallpaper from "../assets/partners.png";
-import pumpLogo      from "../assets/pmp.co.svg";
 import appsquadzLogo from "../assets/appsqaudz-logo.svg";
+import archeraLogo from "../assets/archera.png";
 import milkstrawLogo from "../assets/milkstraw.png";
-import usageLogo     from "../assets/usage-ai.png";
-import archeraLogo   from "../assets/archera.png";
+import partnersWallpaper from "../assets/partners.png";
+import pumpLogo from "../assets/pmp.co.svg";
 import spendbaseLogo from "../assets/spendbase.co.png";
+import usageLogo from "../assets/usage-ai.png";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({

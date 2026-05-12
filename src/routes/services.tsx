@@ -1,16 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  BarChart3,
-  Server,
-  ArrowRightLeft,
-  Network,
-  GitBranch,
-  ShieldCheck,
-  ClipboardCheck,
-  Check,
-  ArrowRight,
-  Sparkles,
+    ArrowRight,
+    ArrowRightLeft,
+    BarChart3,
+    Check,
+    ClipboardCheck,
+    GitBranch,
+    Network,
+    Server,
+    ShieldCheck,
+    Sparkles,
 } from "lucide-react";
 import serviceWallpaper from "../assets/service wallpaper.png";
 

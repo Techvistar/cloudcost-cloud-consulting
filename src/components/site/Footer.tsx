@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import cloudcostLogo from "../../assets/cloudcost-logo.png";
 
 export function Footer() {

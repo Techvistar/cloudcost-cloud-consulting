@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  BarChart3,
-  FileCheck,
-  FileText,
-  Search,
-  Users2,
+    BarChart3,
+    FileCheck,
+    FileText,
+    Search,
+    Users2,
 } from "lucide-react";
 import howItWorksWallpaper from "../assets/how-it-works.png";
 

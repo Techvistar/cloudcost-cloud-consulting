@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import cloudcostLogo from "../../assets/cloudcost-logo.png";

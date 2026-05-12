@@ -3,14 +3,12 @@ import {
     HeadContent,
     Link,
     Outlet,
-    Scripts,
     createRootRouteWithContext,
     useRouter,
 } from "@tanstack/react-router";
 
 import { Footer } from "@/components/site/Footer";
 import { Navbar } from "@/components/site/Navbar";
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -70,51 +68,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Cloudcost — Cloud Cost Optimization & Enterprise Consulting" },
-      { name: "description", content: "Reduce your cloud spend with expert cost optimization, FinOps consulting, migration, architecture design, and managed services across AWS, Azure, and GCP." },
-      { name: "author", content: "Cloudcost" },
-      { property: "og:title", content: "Cloudcost — Cloud Cost Optimization & Enterprise Consulting" },
-      { property: "og:description", content: "Transform your cloud infrastructure with expert consulting services across AWS, Azure, and GCP." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
+      <HeadContent />
       <div className="flex min-h-screen flex-col bg-background">
         <Navbar />
         <main className="flex-1">

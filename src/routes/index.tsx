@@ -3,22 +3,19 @@ import { PartnerMarquee } from "@/components/site/Marquee";
 import { Section } from "@/components/site/Section";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
+import {
+    ArrowRight,
+    CheckCircle2,
+    FileText,
+    Headphones,
+    Layers,
+    Shield,
+    ShieldCheck,
+    Sparkles,
+    TrendingDown
+} from "lucide-react";
 import { useRef } from "react";
 import heroBg from "../assets/hero-bg.png";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Cloud,
-  FileText,
-  Headphones,
-  Layers,
-  Shield,
-  ShieldCheck,
-  Sparkles,
-  TrendingDown,
-  Users,
-  Zap,
-} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
