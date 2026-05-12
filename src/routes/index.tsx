@@ -15,7 +15,7 @@ import {
     TrendingDown
 } from "lucide-react";
 import { useRef } from "react";
-import heroBg from "../assets/hero-bg.png";
+const heroBg = "/hero-bg.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({

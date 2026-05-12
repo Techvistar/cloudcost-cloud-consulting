@@ -12,7 +12,7 @@ import {
     ShieldCheck,
     Sparkles,
 } from "lucide-react";
-import serviceWallpaper from "../assets/service wallpaper.png";
+const serviceWallpaper = "/service-wallpaper.png";
 
 export const Route = createFileRoute("/services")({
   head: () => ({

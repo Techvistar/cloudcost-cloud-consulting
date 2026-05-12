@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import appsquadzLogo from "../assets/appsqaudz-logo.svg";
 import archeraLogo from "../assets/archera.png";
 import milkstrawLogo from "../assets/milkstraw.png";
-import partnersWallpaper from "../assets/partners.png";
+const partnersWallpaper = "/partners.png";
 import pumpLogo from "../assets/pmp.co.svg";
 import spendbaseLogo from "../assets/spendbase.co.png";
 import usageLogo from "../assets/usage-ai.png";

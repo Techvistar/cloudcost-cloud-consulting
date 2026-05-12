@@ -7,7 +7,7 @@ import {
     Search,
     Users2,
 } from "lucide-react";
-import howItWorksWallpaper from "../assets/how-it-works.png";
+const howItWorksWallpaper = "/how-it-works.png";
 
 export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ShieldCheck, Mail, CheckCircle2, Phone, MapPin, AlertCircle } from "lucide-react";
-import contactWallpaper from "../assets/contact.png";
+const contactWallpaper = "/contact.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
