@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ShieldCheck, Mail, CheckCircle2, Phone, MapPin, AlertCircle } from "lucide-react";
+import contactWallpaper from "../assets/contact.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -71,14 +72,23 @@ function ContactPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-hero">
+      <section
+        className="relative overflow-hidden bg-background"
+        style={{
+          backgroundImage: `url(${contactWallpaper})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
         <div className="absolute inset-0 bg-grid opacity-50" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 md:py-28">
+        <div className="relative mx-auto grid max-w-7xl gap-8 sm:gap-10 lg:gap-12 px-4 sm:px-6 md:px-8 py-10 sm:py-16 md:py-20 lg:py-28 md:grid-cols-2">
           <div>
             <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
               Contact Us
             </span>
-            <h1 className="mt-5 text-4xl font-bold md:text-5xl">
+            <h1 className="mt-5 text-3xl sm:text-4xl font-bold md:text-5xl">
               Get your <span className="text-gradient">savings report</span>
             </h1>
             <p className="mt-5 max-w-md text-muted-foreground">
@@ -130,7 +140,7 @@ function ContactPage() {
             </div>
           </div>
 
-          <div className="glass-panel rounded-[2rem] border border-border p-8 md:p-10">
+          <div className="glass-panel rounded-2xl sm:rounded-[2rem] border border-border p-5 sm:p-8 md:p-10">
             {submitted ? (
               <div className="flex h-full flex-col items-center justify-center py-12 text-center">
                 <div className="grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
