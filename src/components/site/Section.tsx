@@ -14,7 +14,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section className={`mx-auto max-w-[1280px] px-4 sm:px-6 md:px-8 py-12 sm:py-20 md:py-28 ${className}`}>
+    <section className={`section-paint mx-auto max-w-[1280px] px-4 sm:px-6 md:px-8 py-12 sm:py-20 md:py-28 ${className}`}>
       {(eyebrow || title || subtitle) && (
         <div className="mx-auto mb-10 sm:mb-16 max-w-2xl text-center">
           {eyebrow && (

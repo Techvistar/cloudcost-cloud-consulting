@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { m } from "@/components/motion/MotionProvider";
+import { FeaturedSolutionsSection } from "@/components/site/FeaturedSolutionsSection";
+import { PageWallpaper } from "@/components/site/PageWallpaper";
+import { WALLPAPERS } from "@/lib/wallpaper";
 import {
     ArrowRight,
     ArrowRightLeft,
@@ -12,18 +15,16 @@ import {
     ShieldCheck,
     Sparkles,
 } from "lucide-react";
-const serviceWallpaper = "/service-wallpaper.png";
-
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Cloudcost" },
+      { title: "Services — fixcloudcost" },
       {
         name: "description",
         content:
           "Comprehensive cloud services: FinOps consulting, cost optimization, managed services, migration, architecture design, security, and AWS Well-Architected reviews.",
       },
-      { property: "og:title", content: "Services — Cloudcost" },
+      { property: "og:title", content: "Services — fixcloudcost" },
       {
         property: "og:description",
         content: "Expert cloud consulting services for enterprise infrastructure transformation.",
@@ -165,7 +166,7 @@ const stagger = (i: number) => ({
 ═══════════════════════════════════════════ */
 function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
   return (
-    <motion.article
+    <m.article
       variants={stagger(i)}
       initial="hidden"
       whileInView="show"
@@ -210,7 +211,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
           {s.focus}
         </p>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -221,58 +222,55 @@ function ServicesPage() {
   return (
     <>
       {/* ══════════════ HERO ══════════════ */}
-      <section
-        className="relative overflow-hidden bg-background"
-        style={{
-          backgroundImage: `url(${serviceWallpaper})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <PageWallpaper
+        src={WALLPAPERS.services}
+        className="section-paint"
+        overlay={
+          <>
+            <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden
+              style={{
+                background: [
+                  "radial-gradient(ellipse 72% 55% at 50% -8%, oklch(0.36 0.10 162 / 0.13) 0%, transparent 70%)",
+                  "radial-gradient(ellipse 50% 40% at 90% 50%, oklch(0.82 0.13 80 / 0.08) 0%, transparent 65%)",
+                  "radial-gradient(ellipse 45% 35% at 10% 80%, oklch(0.50 0.14 160 / 0.07) 0%, transparent 65%)",
+                ].join(", "),
+              }}
+            />
+            <div className="absolute inset-0 bg-grid opacity-40" aria-hidden />
+            {particles.map((p, idx) => (
+              <span
+                key={idx}
+                aria-hidden
+                className="particle-float pointer-events-none absolute rounded-full bg-primary/30"
+                style={{
+                  left: p.x,
+                  top: p.y,
+                  width: p.r * 2,
+                  height: p.r * 2,
+                  animationDuration: `${p.dur}s`,
+                  animationDelay: `${p.del}s`,
+                }}
+              />
+            ))}
+          </>
+        }
       >
-        <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
-        {/* Mesh radial gradients */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{
-            background: [
-              "radial-gradient(ellipse 72% 55% at 50% -8%, oklch(0.36 0.10 162 / 0.13) 0%, transparent 70%)",
-              "radial-gradient(ellipse 50% 40% at 90% 50%, oklch(0.82 0.13 80 / 0.08) 0%, transparent 65%)",
-              "radial-gradient(ellipse 45% 35% at 10% 80%, oklch(0.50 0.14 160 / 0.07) 0%, transparent 65%)",
-            ].join(", "),
-          }}
-        />
-
-        {/* Subtle grid texture */}
-        <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
-
-        {/* Floating particles */}
-        {particles.map((p, idx) => (
-          <motion.span
-            key={idx}
-            aria-hidden="true"
-            className="pointer-events-none absolute rounded-full bg-primary/30"
-            style={{ left: p.x, top: p.y, width: p.r * 2, height: p.r * 2 }}
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: p.dur, delay: p.del, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-
-        {/* Content */}
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-28 md:py-36 text-center">
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             animate="show"
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/8 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] sm:tracking-[0.24em] text-primary">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] sm:tracking-[0.24em] text-primary">
               Our Services
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             variants={fadeUp}
             initial="hidden"
             animate="show"
@@ -281,9 +279,9 @@ function ServicesPage() {
           >
             Comprehensive Cloud{" "}
             <span className="text-gradient-hero">Consulting Solutions</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             initial="hidden"
             animate="show"
@@ -292,7 +290,7 @@ function ServicesPage() {
           >
             From cost optimization to full infrastructure management — expert cloud consulting
             services tailored to your business needs.
-          </motion.p>
+          </m.p>
 
           {/* Decorative bottom fade */}
           <div
@@ -303,7 +301,7 @@ function ServicesPage() {
             }}
           />
         </div>
-      </section>
+      </PageWallpaper>
 
       {/* ══════════════ CARDS ══════════════ */}
       <section className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-8 pb-3 sm:pb-6 pt-2 sm:pt-4">
@@ -313,6 +311,10 @@ function ServicesPage() {
           ))}
         </div>
       </section>
+
+      <FeaturedSolutionsSection
+        services={[services[0], services[1], services[2]]}
+      />
 
       {/* ══════════════ CTA ══════════════ */}
       <section className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-8 py-12 sm:py-20 md:py-28">
@@ -362,7 +364,7 @@ function ServicesPage() {
             viewBox="0 0 1200 400"
           >
             {[0, 1, 2].map((n) => (
-              <motion.path
+              <m.path
                 key={n}
                 d={`M0,${140 + n * 55} C200,${100 + n * 55} 400,${190 + n * 55} 600,${140 + n * 55} C800,${90 + n * 55} 1000,${185 + n * 55} 1200,${140 + n * 55}`}
                 fill="none"
@@ -385,7 +387,7 @@ function ServicesPage() {
             { x: "12%", y: "78%", r: 1.5, dur: 9, del: 0.5 },
             { x: "50%", y: "90%", r: 2, dur: 6.5, del: 1.5 },
           ].map((p, idx) => (
-            <motion.span
+            <m.span
               key={idx}
               aria-hidden="true"
               className="pointer-events-none absolute rounded-full bg-white/20"
@@ -397,7 +399,7 @@ function ServicesPage() {
 
           {/* Content */}
           <div className="relative mx-auto max-w-3xl px-5 sm:px-8 py-12 sm:py-16 text-center text-primary-foreground md:px-16 md:py-24">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -448,7 +450,7 @@ function ServicesPage() {
                   How It Works
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>

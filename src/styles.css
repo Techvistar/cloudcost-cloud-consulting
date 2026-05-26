@@ -152,10 +152,14 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
   body {
     min-height: 100vh;
     margin: 0;
+    overflow-x: clip;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
@@ -163,6 +167,17 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .animate-marquee,
+    .animate-orb,
+    .animate-float,
+    .animate-float-delay,
+    .text-gradient-hero,
+    .particle-float {
+      animation: none !important;
+    }
   }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; }
   p, li, label { color: var(--color-foreground); }
@@ -259,7 +274,38 @@
     box-shadow: var(--shadow-soft);
   }
   .btn-hero {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .marquee-track {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .hero-bg-layer {
+    transform: translateZ(0);
+    contain: strict;
+  }
+  .section-paint {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  @keyframes particle-float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -14px, 0); }
+  }
+  .particle-float {
+    animation: particle-float 7s ease-in-out infinite;
+    will-change: transform;
+  }
+  @media (max-width: 767px) {
+    .glass,
+    .glass-panel {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .btn-hero-secondary {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
   }
   .btn-hero-primary {
     background-image: var(--gradient-emerald-deep);

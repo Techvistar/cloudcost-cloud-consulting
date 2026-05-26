@@ -1,12 +1,13 @@
 import { FinalCTA } from "@/components/site/CTA";
 import { Section } from "@/components/site/Section";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { m } from "@/components/motion/MotionProvider";
+import { PageWallpaper } from "@/components/site/PageWallpaper";
+import { WALLPAPERS } from "@/lib/wallpaper";
 import { ArrowRight } from "lucide-react";
 import appsquadzLogo from "../assets/appsqaudz-logo.svg";
 import archeraLogo from "../assets/archera.png";
 import milkstrawLogo from "../assets/milkstraw.png";
-const partnersWallpaper = "/partners.png";
 import pumpLogo from "../assets/pmp.co.svg";
 import spendbaseLogo from "../assets/spendbase.co.png";
 import usageLogo from "../assets/usage-ai.png";
@@ -14,9 +15,9 @@ import usageLogo from "../assets/usage-ai.png";
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partners — Cloudcost" },
+      { title: "Partners — fixcloudcost" },
       { name: "description", content: "Meet our vetted FinOps partners competing to optimize your cloud spend: pump.co, cast.ai, archera.ai, spendbase.co and more." },
-      { property: "og:title", content: "Cloudcost FinOps Partner Network" },
+      { property: "og:title", content: "fixcloudcost FinOps Partner Network" },
       { property: "og:description", content: "Top FinOps experts across AWS, Azure and GCP." },
     ],
   }),
@@ -44,17 +45,16 @@ const cardAnim = (i: number) => ({
 function PartnersPage() {
   return (
     <>
-      <section
-        className="relative overflow-hidden bg-background"
-        style={{
-          backgroundImage: `url(${partnersWallpaper})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <PageWallpaper
+        src={WALLPAPERS.partners}
+        className="section-paint"
+        overlay={
+          <>
+            <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
+            <div className="absolute inset-0 bg-grid opacity-50" />
+          </>
+        }
       >
-        <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
-        <div className="absolute inset-0 bg-grid opacity-50" />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 py-12 sm:py-20 md:py-32 text-center">
           <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 sm:px-3 py-1 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary">
             Partner Network
@@ -66,12 +66,12 @@ function PartnersPage() {
             Every partner is vetted for technical depth, transparent pricing, and proven savings outcomes.
           </p>
         </div>
-      </section>
+      </PageWallpaper>
 
       <Section>
         <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {partners.map((p, i) => (
-            <motion.div
+            <m.div
               key={p.name}
               {...cardAnim(i)}
               className="group flex flex-col rounded-2xl border border-border bg-card p-5 sm:p-7 shadow-soft transition-all duration-300 hover:border-transparent hover:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]"
@@ -103,7 +103,7 @@ function PartnersPage() {
               <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold opacity-0 transition-opacity duration-200 group-hover:opacity-100" style={{ color: p.color }}>
                 Available in marketplace <ArrowRight className="h-3.5 w-3.5" />
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Section>

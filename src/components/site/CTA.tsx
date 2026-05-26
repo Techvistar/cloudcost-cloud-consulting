@@ -6,8 +6,8 @@ export function FinalCTA() {
     <section className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-8 pb-16 sm:pb-28">
       <div className="relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-gradient-emerald-deep p-6 sm:p-12 md:p-20 text-primary-foreground shadow-emerald">
         <div className="absolute inset-0 bg-grid-dark opacity-35" />
-        <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-gold/20 blur-3xl animate-orb" />
-        <div className="absolute -left-28 -bottom-28 h-80 w-80 rounded-full bg-primary-glow/30 blur-3xl animate-orb" />
+        <div className="pointer-events-none absolute -right-28 -top-28 hidden h-80 w-80 rounded-full bg-gold/20 blur-2xl animate-orb md:block" />
+        <div className="pointer-events-none absolute -left-28 -bottom-28 hidden h-80 w-80 rounded-full bg-primary-glow/30 blur-2xl animate-orb md:block" />
         <div className="relative mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] sm:tracking-[0.22em] backdrop-blur">
             <Sparkles className="h-3 sm:h-3.5 w-3 sm:w-3.5" /> Start optimizing today
@@ -21,7 +21,7 @@ export function FinalCTA() {
           <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center gap-2 sm:gap-3">
             <Link
               to="/contact"
-              className="btn-hero btn-hero-primary relative overflow-hidden w-full sm:w-auto"
+              className="group btn-hero btn-hero-primary relative overflow-hidden w-full sm:w-auto"
             >
               <span className="absolute inset-0 -translate-x-full bg-white/15 transition-transform duration-700 ease-out group-hover:translate-x-full" />
               <span className="relative inline-flex items-center gap-2">

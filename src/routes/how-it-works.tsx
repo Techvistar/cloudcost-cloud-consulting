@@ -1,245 +1,266 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import {
-    BarChart3,
-    FileCheck,
-    FileText,
-    Search,
-    Users2,
-} from "lucide-react";
-const howItWorksWallpaper = "/how-it-works.png";
+import { BarChart3, FilePenLine, Receipt, Search, Users2 } from "lucide-react";
 
 export const Route = createFileRoute("/how-it-works")({
-  component: HowItWorks,
+  component: HowItWorksPage,
 });
+
+/** Page + hero */
+const FOREST = "#06402B";
+const HEADING_LIME = "#5CB338";
+const PAGE_BG = "#FDFCF8";
+
+/** Screenshot: single orange accent for line, nodes, badges, icons */
+const ACCENT_ORANGE = "#F97316";
 
 const steps = [
   {
     n: "01",
     day: "Day 1",
-    t: "Discovery call",
-    d: "A 20-minute call to understand your cloud footprint, contracts, and savings goals.",
+    title: "Discovery call",
+    body: "A 20-minute call to understand your cloud footprint, contracts, and savings goals.",
     Icon: Search,
   },
   {
     n: "02",
     day: "Day 1–2",
-    t: "Read-only billing access",
-    d: "Connect AWS, Azure, or GCP via cross-account roles. We never touch workloads.",
-    Icon: FileText,
+    title: "Read-only billing access",
+    body: "Connect AWS, Azure, or GCP via cross-account roles. We never touch workloads.",
+    Icon: Receipt,
   },
   {
     n: "03",
     day: "Day 2–4",
-    t: "Partner bidding",
-    d: "Our FinOps partner network — pump.co, Archenova, Usageal, Spendbase.co, Cast.ai, AppSquadz — competes for your spend.",
+    title: "Partner bidding",
+    body: "Our FinOps partner network — pump.co, Archenova, UsageAI, Spendbase.co, Cast.ai, AppSquadz — competes for your spend.",
     Icon: Users2,
   },
   {
     n: "04",
     day: "Day 5",
-    t: "Quote comparison",
-    d: "We deliver a side-by-side breakdown of every offer with risk, term, and break-even analysis.",
+    title: "Quote comparison",
+    body: "We deliver a side-by-side breakdown of every offer with risk, term, and break-even analysis.",
     Icon: BarChart3,
   },
   {
     n: "05",
     day: "Day 6–7",
-    t: "Sign & save",
-    d: "Pick the best deal. We handle paperwork, onboarding, and ongoing rebalancing.",
-    Icon: FileCheck,
+    title: "Sign & save",
+    body: "Pick the best deal. We handle paperwork, onboarding, and ongoing rebalancing.",
+    Icon: FilePenLine,
   },
-];
+] as const;
 
-const COLORS = ["#F97316", "#F59E0B", "#84CC16", "#10B981", "#064E3B"];
-
-function CloudCard({
-  step,
-  index,
-  side,
-}: {
-  step: (typeof steps)[0];
-  index: number;
-  side: "left" | "right";
-}) {
-  const color = COLORS[index];
-  const isLeft = side === "left";
-  const { Icon } = step;
-
+function TimelineNode() {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      whileHover={{ y: -6, scale: 1.005 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="relative w-full max-w-[460px] group"
-    >
-      {/* ICON BUBBLE - Positioned near the top */}
+    <div className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center">
       <div
-        className={`absolute top-6 sm:top-8 z-20 hidden md:flex h-20 sm:h-24 w-20 sm:w-24 items-center justify-center rounded-full bg-white shadow-xl border border-slate-50 transition-all duration-300
-        ${isLeft ? "-left-10 sm:-left-12" : "-right-10 sm:-right-12"}`}
-      >
-        <div
-          className="flex h-16 sm:h-20 w-16 sm:w-20 items-center justify-center rounded-full bg-white shadow-inner transition-transform duration-300 group-hover:scale-105"
-          style={{ border: `1px solid ${color}15` }}
-        >
-          <Icon size={24} color={color} strokeWidth={1.5} />
-        </div>
-      </div>
-
-      <div className="relative">
-        {/* MAIN BODY */}
-        <div
-          className="relative z-0 overflow-hidden rounded-2xl sm:rounded-[45px] bg-white p-6 sm:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.03)] transition-shadow duration-300 group-hover:shadow-[0_25px_80px_rgba(0,0,0,0.12)]"
-          style={{ border: `1px solid ${color}10` }}
-        >
-          {/* STEP NUMBER */}
-          <div
-            className="absolute right-4 sm:right-8 top-2 sm:top-4 text-6xl sm:text-[90px] font-black opacity-[0.04] leading-none select-none"
-            style={{ color }}
-          >
-            {step.n}
-          </div>
-
-          <div className={`relative z-10 flex flex-col gap-3 sm:gap-4 ${isLeft ? "pr-2 sm:pr-4" : "pl-2 sm:pl-4"}`}>
-            <span
-              className="w-fit rounded-full px-3 sm:px-4 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider"
-              style={{ background: `${color}10`, color }}
-            >
-              {step.day}
-            </span>
-            <h3 className="text-lg sm:text-2xl font-bold text-[#0F172A] leading-tight">{step.t}</h3>
-            <p className="text-[13px] sm:text-[15px] leading-relaxed text-slate-500 font-medium">{step.d}</p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function TimelineNode({ i }: { i: number }) {
-  const color = COLORS[i];
-  return (
-    <div className="relative flex items-center justify-center">
-      {/* Outer Dashed Ring */}
-      <div className="h-12 w-12 rounded-full border-2 border-dashed border-slate-200" />
-      {/* Inner Node */}
+        className="absolute inset-0 rounded-full border-2 border-dashed opacity-[0.9]"
+        style={{ borderColor: ACCENT_ORANGE }}
+        aria-hidden
+      />
       <div
-        className="absolute h-6 w-6 rounded-full border-[4px] border-white shadow-md z-10"
-        style={{ backgroundColor: color, boxShadow: `0 0 0 4px ${color}20` }}
+        className="relative z-10 h-[22px] w-[22px] rounded-full border-[3px] border-white shadow-[0_2px_8px_rgba(0,0,0,0.12)]"
+        style={{ backgroundColor: ACCENT_ORANGE }}
       />
     </div>
   );
 }
 
-export default function HowItWorks() {
+/** Rectangular cards with soft corners — matches reference (not cloud image) */
+function ProcessCard({
+  step,
+  side,
+  iconTowardTimeline,
+}: {
+  step: (typeof steps)[number];
+  side: "left" | "right";
+  /** True = icon sits on the edge toward the center timeline (left column + mobile) */
+  iconTowardTimeline: boolean;
+}) {
+  const isLeft = side === "left";
+  const { Icon } = step;
+
   return (
-    <main
-      className="relative min-h-screen bg-[#FCFBF7] font-sans selection:bg-green-100"
-      style={{
-        backgroundImage: `url(${howItWorksWallpaper})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[rgba(250,248,242,0.78)]" />
-      {/* Background SVG Waves */}
-      <div className="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
-        <svg className="absolute top-0 left-0 w-full" viewBox="0 0 1440 800" fill="none">
-          <path d="M0 100 C 400 300 1000 0 1440 200" stroke="#E5E7EB" strokeWidth="1" fill="none" />
-          <path
-            d="M0 400 C 500 200 900 600 1440 400"
-            stroke="#E5E7EB"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.5"
-          />
-        </svg>
+    <div className={`relative w-full max-w-[460px] ${iconTowardTimeline ? "max-md:pl-10" : "max-md:pr-10"} ${isLeft ? "md:mr-0" : "md:ml-0"}`}>
+      <div
+        className={`absolute top-1/2 z-20 flex h-[72px] w-[72px] -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md ${
+          iconTowardTimeline ? "-left-[36px]" : "-right-[36px]"
+        }`}
+        style={{ border: `2px solid ${ACCENT_ORANGE}` }}
+      >
+        <Icon className="h-7 w-7" color={ACCENT_ORANGE} strokeWidth={1.75} aria-hidden />
       </div>
 
-      <section className="relative mx-auto max-w-6xl px-4 sm:px-6 md:px-8 pt-12 sm:pt-20 md:pt-24 pb-16 sm:pb-28 md:pb-32">
-        {/* Header */}
-        <div className="mb-12 sm:mb-20 md:mb-28 max-w-2xl">
-          <span className="inline-block rounded-full border border-slate-200 px-3 sm:px-5 py-1 sm:py-1.5 text-[10px] sm:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 uppercase">
-            Our Process
+      <div className="relative overflow-hidden rounded-2xl border border-neutral-200/80 bg-white px-8 pb-9 pt-8 shadow-[0_8px_32px_rgba(15,23,42,0.06)] sm:rounded-3xl sm:px-10 sm:pb-10 sm:pt-9 md:px-10">
+        <span
+          className="pointer-events-none absolute right-6 top-1/2 z-0 -translate-y-1/2 select-none font-black leading-none text-neutral-200/90 sm:right-8"
+          style={{ fontSize: "clamp(3.25rem, 11vw, 4.75rem)" }}
+          aria-hidden
+        >
+          {step.n}
+        </span>
+
+        <div className="relative z-10 flex flex-col gap-3 pr-14 sm:pr-16">
+          <span
+            className="w-fit rounded-full bg-white px-3.5 py-1 text-[11px] font-bold tracking-wide"
+            style={{ color: ACCENT_ORANGE, border: `1.5px solid ${ACCENT_ORANGE}` }}
+          >
+            {step.day}
           </span>
-          <h1 className="mt-8 sm:mt-10 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#064E3B] leading-[1.05]">
-            Your savings journey <br />
-            <span className="text-[#84CC16]">in 7 days.</span>
+          <h3
+            className="text-xl font-bold leading-snug tracking-tight sm:text-2xl"
+            style={{ color: FOREST }}
+          >
+            {step.title}
+          </h3>
+          <p className="max-w-prose text-[15px] font-medium leading-relaxed text-[#57534E]">
+            {step.body}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundDecor() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      <div
+        className="absolute -left-[8%] top-[14%] h-[min(42vw,320px)] w-[min(70vw,520px)] rounded-[50%] border border-[#06402B]/[0.055]"
+        style={{ transform: "rotate(-8deg)" }}
+      />
+      <div
+        className="absolute -right-[6%] top-[38%] h-[min(36vw,280px)] w-[min(62vw,440px)] rounded-[50%] border border-[#06402B]/[0.045]"
+        style={{ transform: "rotate(6deg)" }}
+      />
+      <div
+        className="absolute bottom-[18%] left-[18%] h-[min(28vw,200px)] w-[min(48vw,360px)] rounded-[50%] border border-[#06402B]/[0.04]"
+        style={{ transform: "rotate(4deg)" }}
+      />
+      <div className="absolute left-[14%] top-[48%] h-2.5 w-2.5 rounded-full bg-[#FF8C00]/35 blur-[1.5px]" />
+      <div className="absolute right-[22%] top-[32%] h-2 w-2 rounded-full bg-[#9CCC65]/40 blur-[1px]" />
+      <div className="absolute left-[40%] top-[72%] h-1.5 w-1.5 rounded-full bg-[#FFC107]/40 blur-[1px]" />
+      <div className="absolute right-[12%] top-[58%] h-2 w-2 rounded-full bg-[#2E8B57]/30 blur-[1px]" />
+    </div>
+  );
+}
+
+function BottomWave() {
+  return (
+    <div
+      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[min(28vh,200px)] opacity-[0.14]"
+      aria-hidden
+    >
+      <svg className="h-full w-full" viewBox="0 0 1440 200" preserveAspectRatio="none" fill="none">
+        <path
+          d="M0 120 C 240 40 480 180 720 100 C 960 20 1200 160 1440 80 L 1440 200 L 0 200 Z"
+          fill="#06402B"
+        />
+        <path
+          d="M0 150 C 280 90 520 170 780 110 C 1040 50 1280 130 1440 100 L 1440 200 L 0 200 Z"
+          fill="#9CCC65"
+          opacity="0.35"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function HowItWorksPage() {
+  return (
+    <main
+      className="relative min-h-screen overflow-hidden font-sans"
+      style={{ backgroundColor: PAGE_BG }}
+    >
+      <BackgroundDecor />
+      <BottomWave />
+
+      <section className="relative z-[1] mx-auto max-w-6xl px-4 pb-28 pt-14 sm:px-6 sm:pb-32 sm:pt-20 md:px-8 md:pt-24">
+        <div className="mb-16 max-w-2xl sm:mb-20 md:mb-28">
+          <span className="inline-block rounded-full border border-[#BBF7D0] bg-[#DCFCE7] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#06402B] sm:text-[11px]">
+            OUR PROCESS
+          </span>
+          <h1
+            className="mt-8 text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight sm:mt-10"
+            style={{ color: FOREST }}
+          >
+            Your savings journey{" "}
+            <span className="whitespace-nowrap" style={{ color: HEADING_LIME }}>
+              in 7 days.
+            </span>
           </h1>
-          <p className="mt-6 sm:mt-8 text-base sm:text-[18px] leading-relaxed text-slate-500 font-medium">
-            A clear, no-nonsense process. <br />
-            No migrations. No infra changes. <br />
+          <p className="mt-6 max-w-lg text-base font-medium leading-relaxed text-[#57534E] sm:mt-8 sm:text-[17px]">
+            A clear, no-nonsense process.
+            <br />
+            No migrations. No infra changes.
+            <br />
             Just smarter pricing.
           </p>
         </div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Gradient Vertical Line */}
+          {/* Solid orange center line (reference) */}
           <div
-            className="absolute left-6 md:left-1/2 top-0 h-full w-[2px] -translate-x-1/2 opacity-60"
-            style={{ background: `linear-gradient(to bottom, ${COLORS.join(",")})` }}
+            className="absolute left-6 top-0 hidden h-full w-0.5 -translate-x-1/2 md:left-1/2 md:block"
+            style={{ backgroundColor: ACCENT_ORANGE }}
           />
 
-          <div className="flex flex-col gap-10 sm:gap-16 md:gap-24">
-            {steps.map((step, i) => (
-              <div
-                key={step.n}
-                className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:items-center"
-              >
-                {/* Mobile layout: node anchored left, card fills remaining width */}
-                <div className="flex items-start gap-4 md:hidden">
-                  <div className="flex-shrink-0 z-10 pt-2">
-                    <TimelineNode i={i} />
+          <div className="flex flex-col gap-14 sm:gap-20 md:gap-[5.5rem]">
+            {steps.map((step, i) => {
+              const isLeft = i % 2 === 0;
+
+              return (
+                <div
+                  key={step.n}
+                  className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-x-0"
+                >
+                  <div className="relative flex items-start gap-4 md:hidden">
+                    <div className="flex shrink-0 flex-col items-center pt-1">
+                      <TimelineNode />
+                    </div>
+                    <div className="min-w-0 flex-1 pt-0">
+                      <ProcessCard step={step} side="right" iconTowardTimeline={true} />
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <CloudCard step={step} index={i} side="right" />
+
+                  <div className="hidden min-h-[1px] justify-end md:flex md:pr-14 lg:pr-20">
+                    {isLeft ? (
+                      <ProcessCard step={step} side="left" iconTowardTimeline={isLeft} />
+                    ) : (
+                      <span />
+                    )}
+                  </div>
+                  <div className="hidden shrink-0 justify-center md:flex md:px-2">
+                    <TimelineNode />
+                  </div>
+                  <div className="hidden min-h-[1px] justify-start md:flex md:pl-14 lg:pl-20">
+                    {!isLeft ? (
+                      <ProcessCard step={step} side="right" iconTowardTimeline={isLeft} />
+                    ) : (
+                      <span />
+                    )}
                   </div>
                 </div>
-
-                {/* Desktop: Left slot */}
-                <div className="hidden md:flex justify-end md:pr-16">
-                  {i % 2 === 0 ? (
-                    <CloudCard step={step} index={i} side="left" />
-                  ) : (
-                    <div />
-                  )}
-                </div>
-
-                {/* Desktop: Node */}
-                <div className="hidden md:block z-10 py-4">
-                  <TimelineNode i={i} />
-                </div>
-
-                {/* Desktop: Right slot */}
-                <div className="hidden md:flex justify-start md:pl-16">
-                  {i % 2 !== 0 ? (
-                    <CloudCard step={step} index={i} side="right" />
-                  ) : (
-                    <div />
-                  )}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* Buttons */}
-        <div className="mt-14 sm:mt-24 md:mt-32 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6">
+        <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:mt-24 md:mt-32 md:flex-row md:gap-6">
           <Link
             to="/contact"
-            className="w-full sm:w-auto rounded-full bg-[#064E3B] px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold text-white shadow-2xl hover:scale-105 transition-transform"
+            className="inline-flex w-full items-center justify-center rounded-full px-10 py-4 text-base font-bold text-white shadow-[0_14px_36px_rgba(6,64,43,0.28)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#06402B] focus-visible:ring-offset-2 sm:w-auto sm:px-12 sm:py-[1.125rem] sm:text-lg"
+            style={{ backgroundColor: FOREST }}
           >
             Start the process →
           </Link>
           <Link
             to="/partners"
-            className="w-full sm:w-auto rounded-full bg-white px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold text-slate-700 shadow-lg border border-slate-100 hover:bg-slate-50 transition-colors"
+            className="inline-flex w-full items-center justify-center rounded-full border border-[#D6D3D1] bg-white px-10 py-4 text-base font-bold transition hover:bg-[#FAFAF9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#06402B] focus-visible:ring-offset-2 sm:w-auto sm:px-12 sm:py-[1.125rem] sm:text-lg"
+            style={{ color: FOREST }}
           >
-            See who's in the network
+            See who&apos;s in the network
           </Link>
         </div>
       </section>

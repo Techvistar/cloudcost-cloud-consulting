@@ -1,15 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
+import { PageWallpaper } from "@/components/site/PageWallpaper";
+import { WALLPAPERS } from "@/lib/wallpaper";
 import { ShieldCheck, Mail, CheckCircle2, Phone, MapPin, AlertCircle } from "lucide-react";
-const contactWallpaper = "/contact.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Cloudcost — Get Your Cloud Savings Report" },
+      { title: "Contact fixcloudcost — Get Your Cloud Savings Report" },
       { name: "description", content: "Reduce your cloud spend with expert guidance. Get competing FinOps quotes from top partners within days. No commitment, no infrastructure changes." },
-      { property: "og:title", content: "Contact Cloudcost — Cloud Cost Optimization" },
+      { property: "og:title", content: "Contact fixcloudcost — Cloud Cost Optimization" },
       { property: "og:description", content: "Get competing FinOps quotes for your AWS, Azure or GCP spend." },
     ],
   }),
@@ -60,6 +61,7 @@ function ContactPage() {
 
       if (response.ok) {
         setSubmitted(true);
+        e.currentTarget.reset();
       } else {
         setSubmitError("Failed to submit form. Please try again.");
       }
@@ -72,18 +74,17 @@ function ContactPage() {
 
   return (
     <>
-      <section
-        className="relative overflow-hidden bg-background"
-        style={{
-          backgroundImage: `url(${contactWallpaper})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <PageWallpaper
+        src={WALLPAPERS.contact}
+        className="section-paint"
+        overlay={
+          <>
+            <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
+            <div className="absolute inset-0 bg-grid opacity-50" />
+          </>
+        }
       >
-        <div className="pointer-events-none absolute inset-0 bg-[rgba(248,246,239,0.82)]" />
-        <div className="absolute inset-0 bg-grid opacity-50" />
-        <div className="relative mx-auto grid max-w-7xl gap-8 sm:gap-10 lg:gap-12 px-4 sm:px-6 md:px-8 py-10 sm:py-16 md:py-20 lg:py-28 md:grid-cols-2">
+        <div className="relative mx-auto grid max-w-[1280px] gap-8 sm:gap-10 lg:gap-12 px-4 sm:px-6 md:px-8 py-10 sm:py-16 md:py-20 lg:py-28 md:grid-cols-2">
           <div>
             <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
               Contact Us
@@ -151,8 +152,9 @@ function ContactPage() {
                   We've received your details. Our team will review your information and reach out within 24 hours with next steps and initial recommendations.
                 </p>
                 <button
+                  type="button"
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                  className="mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
                 >
                   Submit another inquiry
                 </button>
@@ -160,7 +162,7 @@ function ContactPage() {
             ) : (
               <form onSubmit={onSubmit} className="space-y-5" noValidate>
                 {submitError && (
-                  <div className="flex items-center gap-3 rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+                  <div role="alert" className="flex items-center gap-3 rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
                     <AlertCircle className="h-5 w-5 flex-shrink-0" />
                     {submitError}
                   </div>
@@ -169,10 +171,13 @@ function ContactPage() {
                 <Field label="Work Email" name="email" type="email" error={errors.email} />
                 <Field label="Company" name="company" error={errors.company} />
                 <div>
-                  <label className="mb-2 block text-sm font-semibold text-foreground">Cloud Provider</label>
+                  <label htmlFor="provider" className="mb-2 block text-sm font-semibold text-foreground">Cloud Provider</label>
                   <select
+                    id="provider"
                     name="provider"
                     defaultValue="AWS"
+                    aria-invalid={errors.provider ? true : undefined}
+                    aria-describedby={errors.provider ? "provider-error" : undefined}
                     className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
                   >
                     <option>AWS</option>
@@ -180,22 +185,28 @@ function ContactPage() {
                     <option>GCP</option>
                     <option>Multi-cloud</option>
                   </select>
+                  {errors.provider && (
+                    <p id="provider-error" className="mt-1 text-xs text-destructive">{errors.provider}</p>
+                  )}
                 </div>
                 <Field label="Monthly Cloud Spend" name="spend" placeholder="e.g., $25,000" error={errors.spend} />
                 <div>
-                  <label className="mb-2 block text-sm font-semibold text-foreground">Message <span className="text-muted-foreground">(optional)</span></label>
+                  <label htmlFor="message" className="mb-2 block text-sm font-semibold text-foreground">Message <span className="text-muted-foreground">(optional)</span></label>
                   <textarea
+                    id="message"
                     name="message"
                     rows={4}
                     maxLength={1000}
+                    aria-invalid={errors.message ? true : undefined}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30 resize-none"
                   />
-                  {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
+                  {errors.message && <p id="message-error" className="mt-1 text-xs text-destructive">{errors.message}</p>}
                 </div>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="mt-2 w-full rounded-full bg-gradient-emerald-deep px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="mt-2 w-full rounded-full bg-gradient-emerald-deep px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-emerald transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {isLoading ? "Submitting..." : "Get My Savings Report"}
                 </button>
@@ -203,7 +214,7 @@ function ContactPage() {
             )}
           </div>
         </div>
-      </section>
+      </PageWallpaper>
     </>
   );
 }
@@ -211,17 +222,23 @@ function ContactPage() {
 function Field({
   label, name, type = "text", placeholder, error,
 }: { label: string; name: string; type?: string; placeholder?: string; error?: string }) {
+  const id = `field-${name}`;
+  const errorId = `${id}-error`;
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-semibold text-foreground">{label}</label>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-foreground">{label}</label>
       <input
+        id={id}
         name={name}
         type={type}
         placeholder={placeholder}
         maxLength={255}
+        autoComplete={name === "email" ? "email" : name === "name" ? "name" : name === "company" ? "organization" : undefined}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
         className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
       />
-      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
+      {error && <p id={errorId} className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }
