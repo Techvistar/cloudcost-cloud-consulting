@@ -5,18 +5,16 @@ import { m } from "@/components/motion/MotionProvider";
 import { PageWallpaper } from "@/components/site/PageWallpaper";
 import { WALLPAPERS } from "@/lib/wallpaper";
 import { ArrowRight } from "lucide-react";
-import appsquadzLogo from "../assets/appsqaudz-logo.svg";
-import archeraLogo from "../assets/archera.png";
-import milkstrawLogo from "../assets/milkstraw.png";
-import pumpLogo from "../assets/pmp.co.svg";
-import spendbaseLogo from "../assets/spendbase.co.png";
-import usageLogo from "../assets/usage-ai.png";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
       { title: "Partners — fixcloudcost" },
-      { name: "description", content: "Meet our vetted FinOps partners competing to optimize your cloud spend: pump.co, cast.ai, archera.ai, spendbase.co and more." },
+      {
+        name: "description",
+        content:
+          "Meet our vetted FinOps partners competing to optimize your cloud spend across AWS, Azure, and GCP.",
+      },
       { property: "og:title", content: "fixcloudcost FinOps Partner Network" },
       { property: "og:description", content: "Top FinOps experts across AWS, Azure and GCP." },
     ],
@@ -25,15 +23,50 @@ export const Route = createFileRoute("/partners")({
 });
 
 const partners = [
-  { name: "pump.co",       spec: "AWS Cost Optimization",  desc: "Automated AWS savings via group buying and commitment management.",   color: "#16A34A", logo: pumpLogo      },
-  { name: "appsquadz",    spec: "Cloud Managed Services",  desc: "End-to-end managed cloud operations with FinOps practices baked in.", color: "#2563EB", logo: appsquadzLogo },
-  { name: "milkstraw",    spec: "Kubernetes Optimization", desc: "Autonomous Kubernetes cost & performance optimization across clouds.", color: "#7C3AED", logo: milkstrawLogo },
-  { name: "usage.ai",     spec: "RI & Savings Plans",      desc: "AI-driven Reserved Instance and Savings Plans management for AWS.",   color: "#059669", logo: usageLogo     },
-  { name: "archera.ai",   spec: "Commitment Insurance",    desc: "Guaranteed savings with flexible 30-day commitments and analytics.",  color: "#4F46E5", logo: archeraLogo   },
-  { name: "spendbase.co", spec: "SaaS & Cloud Spend",      desc: "Unified cloud and SaaS spend management with negotiated discounts.",  color: "#0284C7", logo: spendbaseLogo },
+  {
+    id: "partner-a",
+    label: "Partner A",
+    spec: "AWS Cost Optimization",
+    desc: "Automated AWS savings via group buying and commitment management.",
+    color: "#16A34A",
+  },
+  {
+    id: "partner-b",
+    label: "Partner B",
+    spec: "Cloud Managed Services",
+    desc: "End-to-end managed cloud operations with FinOps practices baked in.",
+    color: "#2563EB",
+  },
+  {
+    id: "partner-c",
+    label: "Partner C",
+    spec: "Kubernetes Optimization",
+    desc: "Autonomous Kubernetes cost & performance optimization across clouds.",
+    color: "#7C3AED",
+  },
+  {
+    id: "partner-d",
+    label: "Partner D",
+    spec: "RI & Savings Plans",
+    desc: "AI-driven Reserved Instance and Savings Plans management for AWS.",
+    color: "#059669",
+  },
+  {
+    id: "partner-e",
+    label: "Partner E",
+    spec: "Commitment Insurance",
+    desc: "Guaranteed savings with flexible 30-day commitments and analytics.",
+    color: "#4F46E5",
+  },
+  {
+    id: "partner-f",
+    label: "Partner F",
+    spec: "SaaS & Cloud Spend",
+    desc: "Unified cloud and SaaS spend management with negotiated discounts.",
+    color: "#0284C7",
+  },
 ];
 
-/* Clean staggered fade-up — no rotateY / rotate */
 const cardAnim = (i: number) => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -72,21 +105,19 @@ function PartnersPage() {
         <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {partners.map((p, i) => (
             <m.div
-              key={p.name}
+              key={p.id}
               {...cardAnim(i)}
               className="group flex flex-col rounded-2xl border border-border bg-card p-5 sm:p-7 shadow-soft transition-all duration-300 hover:border-transparent hover:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]"
             >
-              {/* Logo */}
               <div className="flex h-10 sm:h-12 items-center">
-                <img
-                  src={p.logo}
-                  alt={p.name}
-                  className="h-8 sm:h-10 w-auto max-w-[200px] object-contain object-left"
-                  loading="lazy"
-                />
+                <span
+                  className="font-display text-lg font-bold tracking-tight sm:text-xl"
+                  style={{ color: p.color }}
+                >
+                  {p.label}
+                </span>
               </div>
 
-              {/* Spec tag */}
               <span
                 className="mt-4 sm:mt-5 w-fit rounded-full px-2.5 py-0.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide"
                 style={{ background: `${p.color}12`, color: p.color }}
@@ -94,13 +125,14 @@ function PartnersPage() {
                 {p.spec}
               </span>
 
-              {/* Description */}
               <p className="mt-3 sm:mt-4 flex-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                 {p.desc}
               </p>
 
-              {/* Hover CTA */}
-              <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold opacity-0 transition-opacity duration-200 group-hover:opacity-100" style={{ color: p.color }}>
+              <div
+                className="mt-5 flex items-center gap-1.5 text-sm font-semibold opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                style={{ color: p.color }}
+              >
                 Available in marketplace <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </m.div>

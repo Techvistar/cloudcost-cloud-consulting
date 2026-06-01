@@ -32,7 +32,7 @@ const steps = [
     n: "03",
     day: "Day 2–4",
     title: "Partner bidding",
-    body: "Our FinOps partner network — pump.co, Archenova, UsageAI, Spendbase.co, Cast.ai, AppSquadz — competes for your spend.",
+    body: "Our vetted FinOps partner network competes for your spend with transparent, side-by-side proposals.",
     Icon: Users2,
   },
   {

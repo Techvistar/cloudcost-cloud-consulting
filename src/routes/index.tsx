@@ -246,7 +246,7 @@ function HomePage() {
 
             <p className="mx-auto mt-5 sm:mt-8 max-w-[660px] text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground">
 
-              Enterprise-grade cloud optimization, migration, and managed services. Get competing FinOps quotes from top partners within days. Transform your infrastructure across AWS, Azure, and GCP.
+              Enterprise-Grade Cloud Optimization, Migration, and Managed Services. Get competing FinOps quotes from top partners within days. Transform your infrastructure across AWS, Azure, and GCP.
 
             </p>
 

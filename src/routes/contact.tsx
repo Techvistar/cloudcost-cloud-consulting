@@ -118,8 +118,8 @@ function ContactPage() {
                 <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Email</p>
-                  <a href="mailto:amit@solutionsoftech.com" className="text-sm font-medium hover:text-primary transition-colors">
-                    amit@solutionsoftech.com
+                  <a href="mailto:sales@fixcloudcost.com" className="text-sm font-medium hover:text-primary transition-colors">
+                    sales@fixcloudcost.com
                   </a>
                 </div>
               </div>
