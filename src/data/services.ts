@@ -70,56 +70,6 @@ export const serviceCategories: ServiceCategoryMeta[] = [
     ],
   },
   {
-    id: "finops",
-    label: "FinOps Marketplace",
-    description:
-      "Our curated partner network competes for your business—transparent quotes, read-only access, and savings you can measure.",
-    services: [
-      {
-        title: "Quote Comparison",
-        desc: "Side-by-side FinOps proposals in one view.",
-        fullDesc:
-          "Compare competing offers from vetted partners with clear breakdowns of projected savings, fees, contract terms, and implementation scope.",
-        bullets: [
-          "Normalized comparison across all partner bids",
-          "Savings, risk, and break-even analysis",
-          "Coverage for AWS, Azure, and GCP environments",
-          "No obligation until you select a partner",
-          "Decisions delivered in days—not months",
-        ],
-        focus: "Outcome: confident partner selection backed by data.",
-      },
-      {
-        title: "Read-Only Access",
-        desc: "Billing visibility only. Zero production risk.",
-        fullDesc:
-          "Partners analyze spend through read-only billing and CUR access. Your workloads, data, and architecture remain completely untouched.",
-        bullets: [
-          "Cross-account roles with least-privilege access",
-          "No changes to infrastructure or applications",
-          "No data migration or agent deployment required",
-          "Audit-friendly access model for security teams",
-          "Enterprise-grade encryption and access controls",
-        ],
-        focus: "Outcome: accurate proposals without operational exposure.",
-      },
-      {
-        title: "Sign & Save",
-        desc: "Formalize savings with clarity before you commit.",
-        fullDesc:
-          "Once you choose a partner, we help structure commitments—Reserved Instances, Savings Plans, and enterprise agreements—aligned to your usage profile.",
-        bullets: [
-          "RI, SP, and commitment strategy tailored to usage",
-          "Contract, SLA, and fee transparency before signing",
-          "Savings validated against an agreed baseline",
-          "Ongoing reviews as usage patterns evolve",
-          "No lock-ins beyond terms you explicitly approve",
-        ],
-        focus: "Outcome: signed agreements with measurable savings from day one.",
-      },
-    ],
-  },
-  {
     id: "engineering",
     label: "Engineering & Governance",
     description:

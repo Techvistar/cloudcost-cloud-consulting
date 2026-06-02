@@ -4,7 +4,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { m } from "@/components/motion/MotionProvider";
 import { PageWallpaper } from "@/components/site/PageWallpaper";
 import { WALLPAPERS } from "@/lib/wallpaper";
-import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
@@ -22,48 +21,79 @@ export const Route = createFileRoute("/partners")({
   component: PartnersPage,
 });
 
-const partners = [
+type Partner = {
+  id: string;
+  label: string;
+  spec: string;
+  quote: string;
+  body: string;
+  recognition: string;
+  color: string;
+};
+
+const partners: Partner[] = [
   {
     id: "partner-a",
     label: "Partner A",
-    spec: "AWS Cost Optimization",
-    desc: "Automated AWS savings via group buying and commitment management.",
+    spec: "FREE CLOUD SAVINGS",
+    quote: "Free cloud savings, security & visibility — one platform.",
+    body: "Partner A helps companies save up to 60% on AWS, Azure, and GCP with zero platform cost, contracts, or engineering effort. Customers can connect within minutes and start optimizing immediately.",
+    recognition: "Up to 60% cloud savings with zero platform cost",
     color: "#16A34A",
   },
   {
     id: "partner-b",
     label: "Partner B",
-    spec: "Cloud Managed Services",
-    desc: "End-to-end managed cloud operations with FinOps practices baked in.",
+    spec: "AWS BILLING OPTIMIZATION",
+    quote: "Enterprise AWS expertise with billing-level optimization.",
+    body: "Partner B combines advanced AWS consulting with flat billing discounts — even for workloads already covered under Reserved Instances and Savings Plans.",
+    recognition: "Discounts even on Reserved Instances and Savings Plans",
     color: "#2563EB",
   },
   {
     id: "partner-c",
     label: "Partner C",
-    spec: "Kubernetes Optimization",
-    desc: "Autonomous Kubernetes cost & performance optimization across clouds.",
-    color: "#7C3AED",
+    spec: "COMMITMENT SAVINGS",
+    quote: "Commitment savings without customer risk.",
+    body: "Partner C enables businesses to benefit from Reserved Instances and Savings Plans without managing long-term commitment risk themselves.",
+    recognition: "Commitment savings without RI/SP ownership risk",
+    color: "#059669",
   },
   {
     id: "partner-d",
     label: "Partner D",
-    spec: "RI & Savings Plans",
-    desc: "AI-driven Reserved Instance and Savings Plans management for AWS.",
-    color: "#059669",
+    spec: "FLEXIBLE CLOUD PRICING",
+    quote: "Enterprise pricing without long-term lock-in.",
+    body: "Partner D allows organizations to access discounted multi-year cloud pricing without making long-term commitments or upfront purchases.",
+    recognition: "Multi-year pricing without long-term commitments",
+    color: "#7C3AED",
   },
   {
     id: "partner-e",
     label: "Partner E",
-    spec: "Commitment Insurance",
-    desc: "Guaranteed savings with flexible 30-day commitments and analytics.",
+    spec: "AUTONOMOUS OPTIMIZATION",
+    quote: "Autonomous cloud optimization with financial protection.",
+    body: "Partner E automatically optimizes cloud commitments in real time and compensates customers for unused commitment value through cashback or credits.",
+    recognition: "Autonomous optimization with cashback protection",
     color: "#4F46E5",
   },
   {
     id: "partner-f",
     label: "Partner F",
-    spec: "SaaS & Cloud Spend",
-    desc: "Unified cloud and SaaS spend management with negotiated discounts.",
+    spec: "KUBERNETES OPTIMIZATION",
+    quote: "Autonomous Kubernetes cost optimization.",
+    body: "Partner F specializes in Kubernetes optimization through automated node sizing, Spot orchestration, and workload balancing.",
+    recognition: "Kubernetes-focused cloud optimization platform",
     color: "#0284C7",
+  },
+  {
+    id: "partner-g",
+    label: "Partner G",
+    spec: "SAAS & CLOUD OPTIMIZATION",
+    quote: "Unified SaaS and cloud spend optimization.",
+    body: "Partner G helps organizations optimize SaaS subscriptions and cloud infrastructure spend while supporting startup cloud credit optimization across AWS, Azure, and GCP.",
+    recognition: "SaaS optimization plus startup cloud credit support",
+    color: "#0D9488",
   },
 ];
 
@@ -74,6 +104,89 @@ const cardAnim = (i: number) => ({
   transition: { duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] },
   whileHover: { y: -5 },
 });
+
+function PartnerCard({
+  partner,
+  index,
+  className = "",
+}: {
+  partner: Partner;
+  index: number;
+  className?: string;
+}) {
+  return (
+    <m.div
+      key={partner.id}
+      {...cardAnim(index)}
+      className={`group relative flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 hover:border-transparent hover:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)] ${className}`}
+    >
+      <h3
+        className="font-display text-xl font-bold tracking-tight"
+        style={{ color: partner.color }}
+      >
+        {partner.label}
+      </h3>
+
+      <span
+        className="mt-3 w-fit rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide"
+        style={{ background: `${partner.color}14`, color: partner.color }}
+      >
+        {partner.spec}
+      </span>
+
+      <div className="mt-3 flex flex-1 flex-col gap-2.5 text-sm leading-relaxed">
+        <p className="font-semibold text-foreground">&ldquo;{partner.quote}&rdquo;</p>
+        <p className="text-muted-foreground">{partner.body}</p>
+      </div>
+    </m.div>
+  );
+}
+
+function PartnerQuickReference() {
+  return (
+    <div className="mt-12 sm:mt-16 md:mt-20">
+      <h2 className="text-center font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        Partner Quick Reference
+      </h2>
+
+      <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card/80 shadow-soft sm:mt-8">
+        <table className="hidden w-full border-collapse text-left text-sm md:table">
+          <thead>
+            <tr className="border-b border-border bg-muted/50">
+              <th className="px-5 py-3.5 font-semibold text-foreground sm:px-6 sm:py-4">Partner</th>
+              <th className="px-5 py-3.5 font-semibold text-foreground sm:px-6 sm:py-4">
+                Key Recognition
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {partners.map((p) => (
+              <tr
+                key={p.id}
+                className="border-b border-border/80 transition-colors last:border-0 hover:bg-primary/[0.04]"
+              >
+                <td className="px-5 py-3.5 font-semibold text-foreground sm:px-6 sm:py-4">{p.label}</td>
+                <td className="px-5 py-3.5 text-muted-foreground sm:px-6 sm:py-4">{p.recognition}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="divide-y divide-border md:hidden">
+          {partners.map((p) => (
+            <div
+              key={p.id}
+              className="px-4 py-4 transition-colors hover:bg-primary/[0.04] sm:px-5"
+            >
+              <p className="font-semibold text-foreground">{p.label}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.recognition}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function PartnersPage() {
   return (
@@ -102,42 +215,22 @@ function PartnersPage() {
       </PageWallpaper>
 
       <Section>
-        <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {partners.map((p, i) => (
-            <m.div
+            <PartnerCard
               key={p.id}
-              {...cardAnim(i)}
-              className="group flex flex-col rounded-2xl border border-border bg-card p-5 sm:p-7 shadow-soft transition-all duration-300 hover:border-transparent hover:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]"
-            >
-              <div className="flex h-10 sm:h-12 items-center">
-                <span
-                  className="font-display text-lg font-bold tracking-tight sm:text-xl"
-                  style={{ color: p.color }}
-                >
-                  {p.label}
-                </span>
-              </div>
-
-              <span
-                className="mt-4 sm:mt-5 w-fit rounded-full px-2.5 py-0.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide"
-                style={{ background: `${p.color}12`, color: p.color }}
-              >
-                {p.spec}
-              </span>
-
-              <p className="mt-3 sm:mt-4 flex-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                {p.desc}
-              </p>
-
-              <div
-                className="mt-5 flex items-center gap-1.5 text-sm font-semibold opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                style={{ color: p.color }}
-              >
-                Available in marketplace <ArrowRight className="h-3.5 w-3.5" />
-              </div>
-            </m.div>
+              partner={p}
+              index={i}
+              className={
+                i === partners.length - 1
+                  ? "sm:col-span-2 sm:max-w-md sm:justify-self-center lg:col-span-1 lg:col-start-2 lg:max-w-none"
+                  : ""
+              }
+            />
           ))}
         </div>
+
+        <PartnerQuickReference />
       </Section>
 
       <FinalCTA />

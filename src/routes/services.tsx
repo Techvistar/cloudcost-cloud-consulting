@@ -10,9 +10,6 @@ import costPerfImg from "@/assets/Cost and performance optimization.jpeg";
 import managedImg from "@/assets/Cloud Managed Services.jpeg";
 import migrationImg from "@/assets/Cloud Migration.jpeg";
 import architectureImg from "@/assets/Cloud Architech Design.png";
-import quoteComparisonImg from "@/assets/Quote comparison.png";
-import readOnlyAccessImg from "@/assets/Read only access .png";
-import signAndSaveImg from "@/assets/sign and save.png";
 import devopsImg from "@/assets/Devops.png";
 import securityImg from "@/assets/Security and compliance.png";
 import awsArcImg from "@/assets/aws arc.jpeg";
@@ -24,7 +21,7 @@ export const Route = createFileRoute("/services")({
       {
         name: "description",
         content:
-          "Enterprise cloud services: cost optimization, managed operations, migration, FinOps quote comparison, DevOps, security, and AWS Well-Architected reviews across AWS, Azure, and GCP.",
+          "Enterprise cloud services: cost optimization, managed operations, migration, architecture design, DevOps, security, and AWS Well-Architected reviews across AWS, Azure, and GCP.",
       },
       { property: "og:title", content: "Services — fixcloudcost" },
       {
@@ -42,9 +39,6 @@ const serviceImages = [
   managedImg,
   migrationImg,
   architectureImg,
-  quoteComparisonImg,
-  readOnlyAccessImg,
-  signAndSaveImg,
   devopsImg,
   securityImg,
   awsArcImg,
