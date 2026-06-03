@@ -1,122 +1,185 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BarChart3, FilePenLine, Receipt, Search, Users2 } from "lucide-react";
+import discoveryCallImg from "@/assets/discovery call.png";
+import readOnlyAccessImg from "@/assets/Read only access .png";
+import partnerBiddingImg from "@/assets/Partner bidding.png";
+import quoteComparisonImg from "@/assets/Quote comparison.png";
+import signAndSaveImg from "@/assets/sign and save.png";
 
 export const Route = createFileRoute("/how-it-works")({
   component: HowItWorksPage,
 });
 
-/** Page + hero */
 const FOREST = "#06402B";
 const HEADING_LIME = "#5CB338";
 const PAGE_BG = "#FDFCF8";
+const TIMELINE_ORANGE = "#ff7a00";
 
-/** Screenshot: single orange accent for line, nodes, badges, icons */
-const ACCENT_ORANGE = "#F97316";
+type Step = {
+  n: string;
+  day: string;
+  title: string;
+  body: string;
+  image: string;
+  imageAlt: string;
+  cardOnLeft: boolean;
+};
 
-const steps = [
+const steps: Step[] = [
   {
     n: "01",
     day: "Day 1",
     title: "Discovery call",
     body: "A 20-minute call to understand your cloud footprint, contracts, and savings goals.",
-    Icon: Search,
+    image: discoveryCallImg,
+    imageAlt: "Discovery call illustration",
+    cardOnLeft: true,
   },
   {
     n: "02",
     day: "Day 1–2",
     title: "Read-only billing access",
     body: "Connect AWS, Azure, or GCP via cross-account roles. We never touch workloads.",
-    Icon: Receipt,
+    image: readOnlyAccessImg,
+    imageAlt: "Read-only billing access illustration",
+    cardOnLeft: false,
   },
   {
     n: "03",
     day: "Day 2–4",
     title: "Partner bidding",
     body: "Our vetted FinOps partner network competes for your spend with transparent, side-by-side proposals.",
-    Icon: Users2,
+    image: partnerBiddingImg,
+    imageAlt: "Partner bidding illustration",
+    cardOnLeft: true,
   },
   {
     n: "04",
     day: "Day 5",
     title: "Quote comparison",
     body: "We deliver a side-by-side breakdown of every offer with risk, term, and break-even analysis.",
-    Icon: BarChart3,
+    image: quoteComparisonImg,
+    imageAlt: "Quote comparison illustration",
+    cardOnLeft: false,
   },
   {
     n: "05",
     day: "Day 6–7",
     title: "Sign & save",
     body: "Pick the best deal. We handle paperwork, onboarding, and ongoing rebalancing.",
-    Icon: FilePenLine,
+    image: signAndSaveImg,
+    imageAlt: "Sign and save illustration",
+    cardOnLeft: true,
   },
-] as const;
+];
 
 function TimelineNode() {
   return (
-    <div className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center">
+    <div
+      className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center"
+      aria-hidden
+    >
       <div
-        className="absolute inset-0 rounded-full border-2 border-dashed opacity-[0.9]"
-        style={{ borderColor: ACCENT_ORANGE }}
-        aria-hidden
+        className="absolute inset-0 rounded-full border-2 border-dashed"
+        style={{ borderColor: TIMELINE_ORANGE }}
       />
       <div
-        className="relative z-10 h-[22px] w-[22px] rounded-full border-[3px] border-white shadow-[0_2px_8px_rgba(0,0,0,0.12)]"
-        style={{ backgroundColor: ACCENT_ORANGE }}
+        className="relative h-3 w-3 rounded-full"
+        style={{ backgroundColor: TIMELINE_ORANGE }}
       />
     </div>
   );
 }
 
-/** Rectangular cards with soft corners — matches reference (not cloud image) */
-function ProcessCard({
-  step,
-  side,
-  iconTowardTimeline,
-}: {
-  step: (typeof steps)[number];
-  side: "left" | "right";
-  /** True = icon sits on the edge toward the center timeline (left column + mobile) */
-  iconTowardTimeline: boolean;
-}) {
-  const isLeft = side === "left";
-  const { Icon } = step;
+function ProcessCard({ step }: { step: Step }) {
+  return (
+    <article className="relative w-full min-h-[220px] max-w-[460px] rounded-[24px] border border-black/[0.05] bg-white p-8 shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
+      <span
+        className="pointer-events-none absolute right-6 top-6 select-none font-extrabold leading-none text-[#06402B]"
+        style={{ fontSize: "72px", opacity: 0.06 }}
+        aria-hidden
+      >
+        {step.n}
+      </span>
+
+      <div className="relative z-10 flex flex-col gap-3 pr-4">
+        <span
+          className="w-fit rounded-full px-3 py-1.5 text-[11px] font-bold tracking-wide"
+          style={{ backgroundColor: "#fff7ed", color: TIMELINE_ORANGE }}
+        >
+          {step.day}
+        </span>
+        <h3
+          className="text-xl font-bold leading-snug tracking-tight sm:text-2xl"
+          style={{ color: FOREST }}
+        >
+          {step.title}
+        </h3>
+        <p className="max-w-prose text-[15px] font-medium leading-relaxed text-[#57534E]">
+          {step.body}
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function StepIllustration({ step }: { step: Step }) {
+  return (
+    <img
+      src={step.image}
+      alt={step.imageAlt}
+      width={260}
+      height={260}
+      className="h-auto w-[220px] max-w-full object-contain sm:w-[240px] lg:w-[260px]"
+      loading="lazy"
+      decoding="async"
+    />
+  );
+}
+
+function ProcessRow({ step, showMobileLine }: { step: Step; showMobileLine: boolean }) {
+  const card = <ProcessCard step={step} />;
+  const illustration = <StepIllustration step={step} />;
 
   return (
-    <div className={`relative w-full max-w-[460px] ${iconTowardTimeline ? "max-md:pl-10" : "max-md:pr-10"} ${isLeft ? "md:mr-0" : "md:ml-0"}`}>
-      <div
-        className={`absolute top-1/2 z-20 flex h-[72px] w-[72px] -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md ${
-          iconTowardTimeline ? "-left-[36px]" : "-right-[36px]"
-        }`}
-        style={{ border: `2px solid ${ACCENT_ORANGE}` }}
-      >
-        <Icon className="h-7 w-7" color={ACCENT_ORANGE} strokeWidth={1.75} aria-hidden />
+    <div className="relative">
+      {/* Mobile: timeline + card then image */}
+      <div className="flex gap-5 md:hidden">
+        <div className="relative flex w-10 shrink-0 flex-col items-center">
+          {showMobileLine ? (
+            <div
+              className="absolute left-1/2 top-10 bottom-0 w-0.5 -translate-x-1/2"
+              style={{ backgroundColor: TIMELINE_ORANGE }}
+              aria-hidden
+            />
+          ) : null}
+          <TimelineNode />
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-8">
+          {card}
+          <div className="flex justify-center sm:justify-start">{illustration}</div>
+        </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl border border-neutral-200/80 bg-white px-8 pb-9 pt-8 shadow-[0_8px_32px_rgba(15,23,42,0.06)] sm:rounded-3xl sm:px-10 sm:pb-10 sm:pt-9 md:px-10">
-        <span
-          className="pointer-events-none absolute right-6 top-1/2 z-0 -translate-y-1/2 select-none font-black leading-none text-neutral-200/90 sm:right-8"
-          style={{ fontSize: "clamp(3.25rem, 11vw, 4.75rem)" }}
-          aria-hidden
+      {/* Desktop: alternating card | timeline | illustration */}
+      <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_40px_minmax(0,1fr)] md:items-center md:gap-x-16 lg:gap-x-20">
+        <div
+          className={`flex min-h-[220px] items-center ${
+            step.cardOnLeft ? "justify-end" : "justify-end"
+          }`}
         >
-          {step.n}
-        </span>
+          {step.cardOnLeft ? card : illustration}
+        </div>
 
-        <div className="relative z-10 flex flex-col gap-3 pr-14 sm:pr-16">
-          <span
-            className="w-fit rounded-full bg-white px-3.5 py-1 text-[11px] font-bold tracking-wide"
-            style={{ color: ACCENT_ORANGE, border: `1.5px solid ${ACCENT_ORANGE}` }}
-          >
-            {step.day}
-          </span>
-          <h3
-            className="text-xl font-bold leading-snug tracking-tight sm:text-2xl"
-            style={{ color: FOREST }}
-          >
-            {step.title}
-          </h3>
-          <p className="max-w-prose text-[15px] font-medium leading-relaxed text-[#57534E]">
-            {step.body}
-          </p>
+        <div className="flex items-center justify-center">
+          <TimelineNode />
+        </div>
+
+        <div
+          className={`flex min-h-[220px] items-center ${
+            step.cardOnLeft ? "justify-start" : "justify-start"
+          }`}
+        >
+          {step.cardOnLeft ? illustration : card}
         </div>
       </div>
     </div>
@@ -134,14 +197,6 @@ function BackgroundDecor() {
         className="absolute -right-[6%] top-[38%] h-[min(36vw,280px)] w-[min(62vw,440px)] rounded-[50%] border border-[#06402B]/[0.045]"
         style={{ transform: "rotate(6deg)" }}
       />
-      <div
-        className="absolute bottom-[18%] left-[18%] h-[min(28vw,200px)] w-[min(48vw,360px)] rounded-[50%] border border-[#06402B]/[0.04]"
-        style={{ transform: "rotate(4deg)" }}
-      />
-      <div className="absolute left-[14%] top-[48%] h-2.5 w-2.5 rounded-full bg-[#FF8C00]/35 blur-[1.5px]" />
-      <div className="absolute right-[22%] top-[32%] h-2 w-2 rounded-full bg-[#9CCC65]/40 blur-[1px]" />
-      <div className="absolute left-[40%] top-[72%] h-1.5 w-1.5 rounded-full bg-[#FFC107]/40 blur-[1px]" />
-      <div className="absolute right-[12%] top-[58%] h-2 w-2 rounded-full bg-[#2E8B57]/30 blur-[1px]" />
     </div>
   );
 }
@@ -176,8 +231,8 @@ function HowItWorksPage() {
       <BackgroundDecor />
       <BottomWave />
 
-      <section className="relative z-[1] mx-auto max-w-6xl px-4 pb-28 pt-14 sm:px-6 sm:pb-32 sm:pt-20 md:px-8 md:pt-24">
-        <div className="mb-16 max-w-2xl sm:mb-20 md:mb-28">
+      <section className="relative z-[1] mx-auto max-w-[1280px] px-4 pb-28 pt-14 sm:px-6 sm:pb-32 sm:pt-20 md:px-8 md:pt-24">
+        <div className="mb-16 max-w-2xl text-left sm:mb-20 md:mb-28">
           <span className="inline-block rounded-full border border-[#BBF7D0] bg-[#DCFCE7] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#06402B] sm:text-[11px]">
             OUR PROCESS
           </span>
@@ -199,51 +254,17 @@ function HowItWorksPage() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Solid orange center line (reference) */}
+        <div className="relative mx-auto max-w-[1100px]">
           <div
-            className="absolute left-6 top-0 hidden h-full w-0.5 -translate-x-1/2 md:left-1/2 md:block"
-            style={{ backgroundColor: ACCENT_ORANGE }}
+            className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 md:block"
+            style={{ backgroundColor: TIMELINE_ORANGE }}
+            aria-hidden
           />
 
-          <div className="flex flex-col gap-14 sm:gap-20 md:gap-[5.5rem]">
-            {steps.map((step, i) => {
-              const isLeft = i % 2 === 0;
-
-              return (
-                <div
-                  key={step.n}
-                  className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-x-0"
-                >
-                  <div className="relative flex items-start gap-4 md:hidden">
-                    <div className="flex shrink-0 flex-col items-center pt-1">
-                      <TimelineNode />
-                    </div>
-                    <div className="min-w-0 flex-1 pt-0">
-                      <ProcessCard step={step} side="right" iconTowardTimeline={true} />
-                    </div>
-                  </div>
-
-                  <div className="hidden min-h-[1px] justify-end md:flex md:pr-14 lg:pr-20">
-                    {isLeft ? (
-                      <ProcessCard step={step} side="left" iconTowardTimeline={isLeft} />
-                    ) : (
-                      <span />
-                    )}
-                  </div>
-                  <div className="hidden shrink-0 justify-center md:flex md:px-2">
-                    <TimelineNode />
-                  </div>
-                  <div className="hidden min-h-[1px] justify-start md:flex md:pl-14 lg:pl-20">
-                    {!isLeft ? (
-                      <ProcessCard step={step} side="right" iconTowardTimeline={isLeft} />
-                    ) : (
-                      <span />
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="flex flex-col gap-20 md:gap-[100px] lg:gap-[120px]">
+            {steps.map((step, i) => (
+              <ProcessRow key={step.n} step={step} showMobileLine={i < steps.length - 1} />
+            ))}
           </div>
         </div>
 
